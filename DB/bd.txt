@@ -1,0 +1,159 @@
+Book:
+ - int Id
+ - string Name
+ - List<Domain> Domain (relation)
+ - List<Author> Authors (relation) - validare, cel putin un autor (Count> 0)
+ - List<Publication> Publications (relation, se refera la editii)
+ 
+Domain:
+ - int Id
+ - string Name
+ - Domain Parent
+ - List<Books> Books
+ 
+ 
+Author:
+ - int Id
+ - string FirstName
+ - string LastName
+ - List<Books> Books
+ 
+ 
+Publication:
+ - int Id
+ - string Name
+ - Date ReleaseDate
+ - int NumberOfPages
+ - string/enum CoverType (Hardcover, Paperback)
+ - Book Book (book-publication relatie 1-n)
+ - Stock Stock (pentru editia x avem un stock y)
+ 
+Stock:
+ - int Id
+ - int NumberOfBooks
+ - int NumberOfBooksForLecture
+ - Publication Publication
+
+Reader:
+ - int Id
+ - string FirstName
+ - string LastName
+ - string Address
+ - string PhoneNumber  \
+					    } validare -> macar una din ele sa fie non-null  
+ - string EmailAddress /
+ - List<Withdrawal> Withdrawals
+ 
+ 
+Withdrawal:
+ - int Id
+ - List<Publication> Publications
+ - DateTime RentedDate
+ - DateTime DueDate
+ - List<Extension> Extensions
+ - Reader Reader
+ 
+Extension:
+ - int Id
+ - int ExtraDays
+ - Withdrawal Withdrawal
+ 
+Librarian: Reader
+ - validari speciale
+ 
+ 
+!!! Relatiile (referintele dintre modele) sunt virtuale.
+
+
+{
+  "LibraryConstraintsOptions": {
+    "MaxBooksPerDay": 10,         //NCZ
+    "MaxNumberOfBookDomains": 2,  //DOM
+    "MaxBooksPerInterval": 5,     //NMC
+    "DaysInterval": 10,           //PER
+    "MaxBooksPerBorrow": 5,       //C
+    "MaxBooksPerDomain": 3,       //D
+    "MonthsInterval": 2,          //L
+    "MaxExtensionDays": 15,       //LIM
+    "BorrowGracePeriod": 31,      //DELTA
+    "MaxGrantedBooksPerDay": 10   //PERSIMP
+  }
+}
+
+Validari:
+Book:
+ - Name
+	-> sa nu fie null	
+ - Domains 
+	-> sa fie cel putin unul (lista Domains sa nu fie null, si Count > 0)
+	-> in lista de domenii, sa nu se regaseasca domenii aflate in relatie de mostenire
+	   ex: Lista = {Fizica, Chimie} -> OK
+	       Lista = {Fizica, Stiinte} -> NOK
+    -> Domains.Count < "DOM"
+ - Authors
+	-> sa nu fie null si Count > 0
+ - Publications
+	-> sa nu fie null si Count > 0
+	
+Domain:
+ - Name
+	-> sa nu fie null
+	
+Author:
+ - FirstName
+	-> sa nu fie null
+ - LastName
+	-> sa nu fie null
+ - Books
+	-> sa nu fie null
+	
+Publication:
+ - Name
+	-> sa nu fie null
+ - ReleaseDate
+	-> sa nu fie mai mare decat ziua curenta (Time.Now ?)
+ - NumberOfPages
+	-> intre 1 si cat vrea fiecare
+ - string/enum CoverType (Hardcover, Paperback)
+    -> sa fie dintr-un range de string-uri
+ - Book (book-publication relatie 1-n)
+	-> sa nu fie null
+ - Stock (pentru editia x avem un stock y)
+	-> sa nu fie null
+	
+Stock:
+ - NumberOfBooks < NumberOfBooksForLecture
+ - Publication
+	-> sa nu fie null
+
+Reader:
+ - Withdrawals != null
+ - pe campuri (email, adresa etc)
+ - vezi mai sus
+
+ 
+Withdrawal:
+ - Publications
+	-> not null, Count > 0
+    -> Count < "C"
+    -> if(Count < 3) => Set<Publications.Book.Domain>().Count >= 2
+
+ - RentedDate < DueDate (by default RentedDate = Time.Now, iar DueDate = RentedDate + "PER")
+ - Extensions
+	-> not null
+ 
+ - Reader != null
+ - vezi ReaderService CheckNumberOfBooksInPeriod(CanRentBooks) -> de mutat in Withdrawal
+ -     -> Set<Reader.Publications.Book.Domain>().Count < "D", si "L" luni, ca mai sus (CheckNumberOfBooksInPeriod)
+ - "NCZ" (la fel ca CheckNumberOfBooksInPeriod)
+ - 
+
+	
+Extension:
+ - ExtraDays > 0
+ - Withdrawal
+	-> not null
+
+
+Librarian:
+ - 
