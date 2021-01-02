@@ -27,6 +27,7 @@ Publication:
  - string/enum CoverType (Hardcover, Paperback)
  - Book Book (book-publication relatie 1-n)
  - Stock Stock (pentru editia x avem un stock y)
+ - List<Withdrawal> BookWithdrawals
  
 Stock:
  - int Id
@@ -74,7 +75,7 @@ Librarian: Reader
     "MaxBooksPerBorrow": 5,       //C
     "MaxBooksPerDomain": 3,       //D
     "MonthsInterval": 2,          //L
-    "MaxExtensionDays": 15,       //LIM
+    "MaxExtensions": 15,          //LIM
     "BorrowGracePeriod": 31,      //DELTA
     "MaxGrantedBooksPerDay": 10   //PERSIMP
   }
@@ -105,7 +106,7 @@ Author:
  - LastName
 	-> sa nu fie null
  - Books
-	-> sa nu fie null
+	-> sa nu fie null <- Are sens?
 	
 Publication:
  - Name
@@ -141,12 +142,19 @@ Withdrawal:
  - RentedDate < DueDate (by default RentedDate = Time.Now, iar DueDate = RentedDate + "PER")
  - Extensions
 	-> not null
+    -> (sum(Exstensions.ExtraDays) + this.DueDate) >= 3 luni -> Extensions.Count < "LIM"
  
  - Reader != null
  - vezi ReaderService CheckNumberOfBooksInPeriod(CanRentBooks) -> de mutat in Withdrawal
  -     -> Set<Reader.Publications.Book.Domain>().Count < "D", si "L" luni, ca mai sus (CheckNumberOfBooksInPeriod)
  - "NCZ" (la fel ca CheckNumberOfBooksInPeriod)
- - 
+ -
+ Set<Book> cartiCareIncaNuAuTrecutDeCooldown
+ foreach Reader.Withdrawals ":"  
+        foreach Withdrawal.Publications ":"
+            cartiCareIncaNuAuTrecutDeCooldown.AddIf(Withdrawal.RentedDate + "DELTA" < Time.Now, Publication.Book);
+ if (una dintre Publications.Book se afla in cartiCareIncaNuAuTrecutDeCooldown)
+    nu bun;
 
 	
 Extension:

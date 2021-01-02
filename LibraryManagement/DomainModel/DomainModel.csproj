@@ -55,7 +55,19 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Model\Author.cs" />
+    <Compile Include="Model\Book.cs" />
+    <Compile Include="Model\Domain.cs" />
+    <Compile Include="Model\Extension.cs" />
+    <Compile Include="Model\Librarian.cs" />
+    <Compile Include="Model\PublishingCompany.cs" />
+    <Compile Include="Model\Reader.cs" />
+    <Compile Include="Model\Stock.cs" />
+    <Compile Include="Model\Withdrawal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Model\Publication.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
