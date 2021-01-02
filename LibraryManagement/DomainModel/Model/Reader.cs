@@ -1,6 +1,7 @@
 ﻿// <copyright file="Reader.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
+// <summary> Defines the DB Reader entity. </summary>
 namespace DomainModel.Model
 {
     using System.Collections.Generic;

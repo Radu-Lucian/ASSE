@@ -1,6 +1,7 @@
 ﻿// <copyright file="Publication.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
+// <summary> Defines the DB Publication entity. </summary>
 namespace DomainModel.Model
 {
     using System;

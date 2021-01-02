@@ -1,6 +1,7 @@
 ﻿// <copyright file="Stock.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
+// <summary> Defines the DB Stock entity. </summary>
 namespace DomainModel.Model
 {
     using Microsoft.Practices.EnterpriseLibrary.Validation;

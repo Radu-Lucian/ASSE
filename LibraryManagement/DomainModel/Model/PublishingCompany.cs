@@ -1,6 +1,7 @@
 ﻿// <copyright file="PublishingCompany.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
+// <summary> Defines the DB Publishing Company entity. </summary>
 namespace DomainModel.Model
 {
     using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;

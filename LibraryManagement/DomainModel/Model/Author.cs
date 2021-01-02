@@ -1,6 +1,7 @@
 ﻿// <copyright file="Author.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
+// <summary> Defines the DB Author entity. </summary>
 namespace DomainModel.Model
 {
     using System.Collections.Generic;

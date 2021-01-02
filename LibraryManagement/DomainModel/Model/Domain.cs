@@ -1,6 +1,7 @@
 ﻿// <copyright file="Domain.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
+// <summary> Defines the DB Domain entity. </summary>
 namespace DomainModel.Model
 {
     using System.Collections.Generic;

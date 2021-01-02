@@ -1,6 +1,7 @@
 ﻿// <copyright file="Extension.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
+// <summary> Defines the DB Extension entity. </summary>
 namespace DomainModel.Model
 {
     using System;
