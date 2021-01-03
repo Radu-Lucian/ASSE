@@ -7,7 +7,7 @@
     public class LibraryManagementContext : DbContext
     {
         public LibraryManagementContext() :
-            base("LibraryConnectionString")
+            base("LibraryManagement")
         {
 
         }
