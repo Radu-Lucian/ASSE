@@ -1,4 +1,4 @@
-﻿namespace DataMapper.Repository
+﻿namespace DataMapper.Repository.DataBaseContext
 {
     using DomainModel.Model;
     using System.Data.Entity;
@@ -23,6 +23,8 @@
         public virtual DbSet<Librarian> Librarians { get; set; }
 
         public virtual DbSet<Publication> Publications { get; set; }
+
+        public virtual DbSet<PublishingCompany> PublishingCompanies { get; set; }
 
         public virtual DbSet<Reader> Readers { get; set; }
 
