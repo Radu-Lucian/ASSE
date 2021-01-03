@@ -11,8 +11,6 @@ namespace DataMapper.Repository.RepositoryBase
     using System.Reflection;
     using DataMapper.Logger;
     using DataMapper.Repository.DataBaseContext;
-    using DomainModel.Model;
-    using Microsoft.Practices.EnterpriseLibrary.Validation;
 
     /// <summary>
     /// RepositoryBase class.
@@ -56,9 +54,6 @@ namespace DataMapper.Repository.RepositoryBase
             this.Logger.LogInfo($"Creating a new {entity.GetType()}", MethodBase.GetCurrentMethod());
             try
             {
-                var bookValidator = ValidationFactory.CreateValidator<Book>();
-                ValidationResults valResults = bookValidator.Validate(entity);
-
                 this.LibraryDbContext.Set<T>().Add(entity);
                 this.LibraryDbContext.SaveChanges();
             }

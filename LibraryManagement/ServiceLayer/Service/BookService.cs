@@ -1,4 +1,4 @@
-﻿// <copyright file="Author.cs" company="Transilvania University Of Brasov">
+﻿// <copyright file="BookService.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
 // <summary> Defines the DB Author entity. </summary>
@@ -16,6 +16,16 @@ namespace ServiceLayer.Service
     public class BookService
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="BookService"/> class.
+        /// </summary>
+        /// <param name="bookRepository">The book repository.</param>
+        public BookService(BookRepository bookRepository)
+        {
+            this.BookRepository = bookRepository;
+            this.Logger = new Logger();
+        }
+
+        /// <summary>
         /// Gets the logger.
         /// </summary>
         /// <value>
@@ -32,20 +42,10 @@ namespace ServiceLayer.Service
         private BookRepository BookRepository { get; set; }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="BookService"/> class.
-        /// </summary>
-        /// <param name="bookRepository">The book repository.</param>
-        public BookService(BookRepository bookRepository)
-        {
-            this.BookRepository = bookRepository;
-            this.Logger = new Logger();
-        }
-
-        /// <summary>
         /// Creates the book.
         /// </summary>
         /// <param name="book">The book.</param>
-        /// <returns></returns>
+        /// <returns>Boolean result if the validation succeeded</returns>
         public bool CreateBook(Book book)
         {
             if (book == null)
@@ -54,8 +54,8 @@ namespace ServiceLayer.Service
                 return false;
             }
 
-            var pValidator = ValidationFactory.CreateValidator<Book>();
-            ValidationResults valResults = pValidator.Validate(book);
+            var bookValidator = ValidationFactory.CreateValidator<Book>();
+            ValidationResults valResults = bookValidator.Validate(book);
 
             if (!valResults.IsValid)
             {

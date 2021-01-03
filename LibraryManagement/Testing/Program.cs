@@ -1,35 +1,47 @@
-﻿using DataMapper.Repository;
-using DomainModel.Model;
-using DomainModel.Options;
-using Newtonsoft.Json;
-using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿// ***********************************************************************
+// Assembly         : Testing
+// Author           : Radu Lucian Andrei
+// Created          : 01-03-2021
+//
+// Last Modified By : Radu Lucian Andrei
+// Last Modified On : 01-03-2021
+// ***********************************************************************
+// <copyright file="Program.cs" company="Transilvania University Of Brasov">
+//     Copyright ©  2021
+// </copyright>
+// <summary></summary>
+// ***********************************************************************
 
 namespace Testing
 {
-    class Program
+    using DomainModel.Options;
+
+    /// <summary>
+    /// Class Program.
+    /// </summary>
+    public class Program
     {
+        /// <summary>
+        /// Defines the entry point of the application.
+        /// </summary>
+        /// <param name="args">The arguments.</param>
         static void Main(string[] args)
         {
-            //ApplicationOptions options = new ApplicationOptions();
-            //options.NCZ = 10;
-            //options.DOM = 2;
-            //options.NMC = 5;
-            //options.PER = 10;
-            //options.C = 5;
-            //options.D = 3;
-            //options.L = 2;
-            //options.LIM = 10;
-            //options.DELTA = 31;
-            //options.PERSIMP = 10;
+            // ApplicationOptions options = new ApplicationOptions();
+            // options.NCZ = 10;
+            // options.DOM = 2;
+            // options.NMC = 5;
+            // options.PER = 10;
+            // options.C = 5;
+            // options.D = 3;
+            // options.L = 2;
+            // options.LIM = 10;
+            // options.DELTA = 31;
+            // options.PERSIMP = 10;
 
 
-            //// serialize JSON to a string and then write string to a file
-            //File.WriteAllText(@"D:\options.json", JsonConvert.SerializeObject(options));
+            // serialize JSON to a string and then write string to a file
+            // File.WriteAllText(@"D:\options.json", JsonConvert.SerializeObject(options));
 
             _ = ApplicationOptions.Options.L;
             _ = ApplicationOptions.Options.NCZ;
