@@ -5,7 +5,7 @@
 namespace DomainModel.Model
 {
     using System.Collections.Generic;
-    using System.Configuration;
+    using DomainModel.Options;
     using Microsoft.Practices.EnterpriseLibrary.Validation;
     using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 
@@ -71,7 +71,7 @@ namespace DomainModel.Model
                 validationResults.AddResult(new ValidationResult("Domains is empty", this, "ValidateDomains", "error", null));
             }
 
-            if (this.Domains.Count > int.Parse(ConfigurationManager.AppSettings["DOM"]))
+            if (this.Domains.Count > ApplicationOptions.Options.DOM)
             {
                 validationResults.AddResult(new ValidationResult("Number of domains is higher than DOM", this, "ValidateDomainsDOM", "error", null));
             }

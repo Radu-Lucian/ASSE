@@ -2,7 +2,7 @@
 {
     using System;
     using System.Data.Entity.Migrations;
-    
+
     public partial class AddedPublishingCompany : DbMigration
     {
         public override void Up()
@@ -10,12 +10,12 @@
             CreateTable(
                 "dbo.PublishingCompanies",
                 c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Name = c.String(),
-                    })
+                {
+                    Id = c.Int(nullable: false, identity: true),
+                    Name = c.String(),
+                })
                 .PrimaryKey(t => t.Id);
-            
+
             AddColumn("dbo.Publications", "PublishingCompany_Id", c => c.Int());
             AddColumn("dbo.Extensions", "CreationDate", c => c.DateTime(nullable: false));
             AddColumn("dbo.Readers", "Address", c => c.String());
@@ -25,7 +25,7 @@
             DropColumn("dbo.Extensions", "ExtraDays");
             DropColumn("dbo.Readers", "Adress");
         }
-        
+
         public override void Down()
         {
             AddColumn("dbo.Readers", "Adress", c => c.String());

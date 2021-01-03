@@ -4,6 +4,7 @@
 // <summary> Defines the DB Publishing Company entity. </summary>
 namespace DomainModel.Model
 {
+    using System.Collections.Generic;
     using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 
     /// <summary>
@@ -27,5 +28,14 @@ namespace DomainModel.Model
         /// </value>
         [NotNullValidator(MessageTemplate = "PublishingCompany name cannot be null")]
         public string Name { get; set; }
+
+        /// <summary>
+        /// Gets or sets the publication.
+        /// </summary>
+        /// <value>
+        /// The publication.
+        /// </value>
+        [NotNullValidator(MessageTemplate = "PublishingCompany name cannot be null")]
+        public virtual ICollection<Publication> Publications { get; set; }
     }
 }

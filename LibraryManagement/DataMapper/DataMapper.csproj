@@ -48,6 +48,12 @@
     <Reference Include="log4net, Version=2.0.12.0, Culture=neutral, PublicKeyToken=669e0ddf0bb1aa2a, processorArchitecture=MSIL">
       <HintPath>..\packages\log4net.2.0.12\lib\net45\log4net.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Common.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Practices.EnterpriseLibrary.Validation, Version=6.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\EnterpriseLibrary.Validation.6.0.1304.0\lib\NET45\Microsoft.Practices.EnterpriseLibrary.Validation.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -75,15 +81,31 @@
     <Compile Include="Migrations\202101022323055_AddedPublishingCompany.designer.cs">
       <DependentUpon>202101022323055_AddedPublishingCompany.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101031735577_PublicationRelationAdded.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Migrations\202101031735577_PublicationRelationAdded.designer.cs">
+      <DependentUpon>202101031735577_PublicationRelationAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
+    <Compile Include="Repository\AuthorRepository.cs" />
+    <Compile Include="Repository\BookRepository.cs" />
     <Compile Include="Repository\DataBaseContext\LibraryManagementContext.cs" />
+    <Compile Include="Repository\DomainRepository.cs" />
+    <Compile Include="Repository\ExtensionRepository.cs" />
+    <Compile Include="Repository\LibrarianRepository.cs" />
+    <Compile Include="Repository\PublicationRepository.cs" />
+    <Compile Include="Repository\PublishingCompanyRepository.cs" />
+    <Compile Include="Repository\ReaderRepository.cs" />
     <Compile Include="Repository\RepositoryBase\IRepositoryBase.cs" />
     <Compile Include="Repository\RepositoryBase\RepositoryBase.cs" />
+    <Compile Include="Repository\StockRepository.cs" />
+    <Compile Include="Repository\WithdrawalRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -102,6 +124,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101022323055_AddedPublishingCompany.resx">
       <DependentUpon>202101022323055_AddedPublishingCompany.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101031735577_PublicationRelationAdded.resx">
+      <DependentUpon>202101031735577_PublicationRelationAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

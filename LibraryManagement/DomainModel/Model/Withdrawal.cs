@@ -6,8 +6,8 @@ namespace DomainModel.Model
 {
     using System;
     using System.Collections.Generic;
-    using System.Configuration;
     using System.Linq;
+    using DomainModel.Options;
     using Microsoft.Practices.EnterpriseLibrary.Validation;
     using Microsoft.Practices.EnterpriseLibrary.Validation.Validators;
 
@@ -82,7 +82,7 @@ namespace DomainModel.Model
                 validationResults.AddResult(new ValidationResult("Publications is empty", this, "ValidatePublications", "error", null));
             }
 
-            if (this.Publications.Count > int.Parse(ConfigurationManager.AppSettings["C"]))
+            if (this.Publications.Count > ApplicationOptions.Options.C)
             {
                 validationResults.AddResult(new ValidationResult("Cannot withdraw more books than \"C\"", this, "ValidatePublicationsC", "error", null));
             }
@@ -114,7 +114,7 @@ namespace DomainModel.Model
 
             {
                 var orderedExtentions = this.Extensions.Where(element => element.CreationDate >= DateTime.Today.AddMonths(-3)).Count();
-                if (orderedExtentions > int.Parse(ConfigurationManager.AppSettings["LIM"]))
+                if (orderedExtentions > ApplicationOptions.Options.LIM)
                 {
                     validationResults.AddResult(new ValidationResult("Number of extensions in last 3 months cannot be grater than \"LIM\"", this, "ValidateExtentions", "error", null));
                 }
@@ -124,13 +124,13 @@ namespace DomainModel.Model
                 var numberOfBooksRentedInPeriod = 0;
                 foreach (var withdrawal in this.Reader.Withdrawals)
                 {
-                    if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays > int.Parse(ConfigurationManager.AppSettings["PER"]))
+                    if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays > ApplicationOptions.Options.PER)
                     {
                         numberOfBooksRentedInPeriod += withdrawal.Publications.Count;
                     }
                 }
 
-                if (numberOfBooksRentedInPeriod + this.Publications.Count > int.Parse(ConfigurationManager.AppSettings["NMC"]))
+                if (numberOfBooksRentedInPeriod + this.Publications.Count > ApplicationOptions.Options.NMC)
                 {
                     validationResults.AddResult(new ValidationResult("Number of rented books within the period \"PER\" cannot be grater than \"LIM\"", this, "ValidateExtentions", "error", null));
                 }
@@ -140,7 +140,7 @@ namespace DomainModel.Model
                 Dictionary<string, uint> domains = new Dictionary<string, uint>();
                 foreach (var withdrawal in this.Reader.Withdrawals)
                 {
-                    if (withdrawal.RentedDate >= DateTime.Today.AddMonths(-int.Parse(ConfigurationManager.AppSettings["L"])))
+                    if (withdrawal.RentedDate >= DateTime.Today.AddMonths(-ApplicationOptions.Options.L))
                     {
                         foreach (var publication in withdrawal.Publications)
                         {
@@ -188,7 +188,7 @@ namespace DomainModel.Model
 
                 foreach (var domain in domains)
                 {
-                    if (domain.Value > int.Parse(ConfigurationManager.AppSettings["D"]))
+                    if (domain.Value > ApplicationOptions.Options.D)
                     {
                         validationResults.AddResult(new ValidationResult("Cannot borrow more than \"D\" books that are from the same domain within a period \"L\"  ", this, "ValidateWithdrawalBookDomain", "error", null));
                     }
@@ -205,7 +205,7 @@ namespace DomainModel.Model
                     }
                 }
 
-                if (numberOfBooksRentedInPeriod + this.Publications.Count > int.Parse(ConfigurationManager.AppSettings["NCZ"]))
+                if (numberOfBooksRentedInPeriod + this.Publications.Count > ApplicationOptions.Options.NCZ)
                 {
                     validationResults.AddResult(new ValidationResult("Number of rented books within one day cannot be grater than \"NCZ\"", this, "ValidateWithdrawalBookDay", "error", null));
                 }
@@ -217,7 +217,7 @@ namespace DomainModel.Model
                 {
                     foreach (var publication in withdrawal.Publications)
                     {
-                        if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays > int.Parse(ConfigurationManager.AppSettings["DELTA"]))
+                        if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays > ApplicationOptions.Options.DELTA)
                         {
                             booksThatHaveNotPassedTheGracePeriod.Add(publication.Book.Name);
                         }
