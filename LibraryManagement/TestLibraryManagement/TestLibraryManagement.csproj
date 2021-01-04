@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="EnterpriseLibrary.Validation" Version="6.0.1304" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />
     <PackageReference Include="Moq" Version="4.15.2" />
     <PackageReference Include="NUnit" Version="3.12.0" />

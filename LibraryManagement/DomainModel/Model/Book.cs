@@ -29,7 +29,8 @@ namespace DomainModel.Model
         /// <value>
         /// The book name.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Book name cannot be null")]
+        [NotNullValidator(MessageTemplate = "Book name cannot be null", Tag = "BookNameNull")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Book name should be between {3} and {5} characters", Tag = "BookNameLenght")]
         public string Name { get; set; }
 
         /// <summary>
@@ -38,7 +39,7 @@ namespace DomainModel.Model
         /// <value>
         /// The domains.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Book domains cannot be null")]
+        [NotNullValidator(MessageTemplate = "Book domains cannot be null", Tag = "BookDomainsNull")]
         public virtual ICollection<Domain> Domains { get; set; }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace DomainModel.Model
         /// <value>
         /// The authors.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Book authors cannot be null")]
+        [NotNullValidator(MessageTemplate = "Book authors cannot be null", Tag = "BookAuthorsNull")]
         public virtual ICollection<Author> Authors { get; set; }
 
         /// <summary>
@@ -56,7 +57,7 @@ namespace DomainModel.Model
         /// <value>
         /// The publications.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Book publications cannot be null")]
+        [NotNullValidator(MessageTemplate = "Book publications cannot be null", Tag = "BookPublicationsNull")]
         public virtual ICollection<Publication> Publications { get; set; }
 
         /// <summary>
@@ -68,12 +69,12 @@ namespace DomainModel.Model
         {
             if (this.Domains.Count == 0)
             {
-                validationResults.AddResult(new ValidationResult("Domains is empty", this, "ValidateDomains", "error", null));
+                validationResults.AddResult(new ValidationResult("Domains is empty", this, "Domains", "ValidateDomains", null));
             }
 
             if (this.Domains.Count > ApplicationOptions.Options.DOM)
             {
-                validationResults.AddResult(new ValidationResult("Number of domains is higher than DOM", this, "ValidateDomainsDOM", "error", null));
+                validationResults.AddResult(new ValidationResult("Number of domains is higher than DOM", this, "Domains", "ValidateDomainsDOM", null));
             }
 
             {
@@ -83,7 +84,7 @@ namespace DomainModel.Model
                     Domain curent = domain;
                     while (curent != null)
                     {
-                        if (!domains.TryGetValue(curent.Name, out uint count))
+                        if (domains.TryGetValue(curent.Name, out uint count))
                         {
                             domains[curent.Name] = count + 1;
                         }
@@ -100,19 +101,19 @@ namespace DomainModel.Model
                 {
                     if (domain.Value > 1)
                     {
-                        validationResults.AddResult(new ValidationResult("Domains ", this, "ValidateDomainsInharitance", "error", null));
+                        validationResults.AddResult(new ValidationResult("Domains cannot be in relations ancestor-descendant", this, "Domains", "ValidateDomainsInharitance", null));
                     }
                 }
             }
 
             if (this.Authors.Count == 0)
             {
-                validationResults.AddResult(new ValidationResult("Authors is empty", this, "ValidateAuthors", "error", null));
+                validationResults.AddResult(new ValidationResult("Authors is empty", this, "Authors", "ValidateAuthors", null));
             }
 
             if (this.Publications.Count == 0)
             {
-                validationResults.AddResult(new ValidationResult("Publications is empty", this, "ValidatePublications", "error", null));
+                validationResults.AddResult(new ValidationResult("Publications is empty", this, "Publications", "ValidatePublications", null));
             }
         }
     }

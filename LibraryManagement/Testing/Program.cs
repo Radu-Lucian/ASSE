@@ -7,7 +7,7 @@
 // Last Modified On : 01-03-2021
 // ***********************************************************************
 // <copyright file="Program.cs" company="Transilvania University Of Brasov">
-//     Copyright ©  2021
+// Radu Lucian Andrei
 // </copyright>
 // <summary></summary>
 // ***********************************************************************
@@ -25,7 +25,7 @@ namespace Testing
         /// Defines the entry point of the application.
         /// </summary>
         /// <param name="args">The arguments.</param>
-        static void Main(string[] args)
+        public static void Main(string[] args)
         {
             // ApplicationOptions options = new ApplicationOptions();
             // options.NCZ = 10;
@@ -39,10 +39,8 @@ namespace Testing
             // options.DELTA = 31;
             // options.PERSIMP = 10;
 
-
             // serialize JSON to a string and then write string to a file
             // File.WriteAllText(@"D:\options.json", JsonConvert.SerializeObject(options));
-
             _ = ApplicationOptions.Options.L;
             _ = ApplicationOptions.Options.NCZ;
             _ = ApplicationOptions.Options.DELTA;

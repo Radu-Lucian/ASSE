@@ -132,7 +132,7 @@ namespace DomainModel.Model
 
                 if (numberOfBooksRentedInPeriod + this.Publications.Count > ApplicationOptions.Options.NMC)
                 {
-                    validationResults.AddResult(new ValidationResult("Number of rented books within the period \"PER\" cannot be grater than \"LIM\"", this, "ValidateExtentions", "error", null));
+                    validationResults.AddResult(new ValidationResult("Number of rented books within the period \"PER\" cannot be grater than \"NMC\"", this, "ValidateExtentions", "error", null));
                 }
             }
 

@@ -26,7 +26,8 @@ namespace DomainModel.Model
         /// <value>
         /// The first name.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Author first name cannot be null")]
+        [NotNullValidator(MessageTemplate = "Author first name cannot be null", Tag = "AuthorFirstNameNull")]
+        [StringLengthValidator(1, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Author first name should be between {3} and {5} characters", Tag = "BookNameLenght")]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -35,7 +36,8 @@ namespace DomainModel.Model
         /// <value>
         /// The last name.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Author last name cannot be null")]
+        [NotNullValidator(MessageTemplate = "Author last name cannot be null", Tag = "AuthorLastNameNull")]
+        [StringLengthValidator(1, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Author last name should be between {3} and {5} characters", Tag = "BookNameLenght")]
         public string LastName { get; set; }
 
         /// <summary>
@@ -44,7 +46,7 @@ namespace DomainModel.Model
         /// <value>
         /// The books.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Author books cannot be null")]
+        [NotNullValidator(MessageTemplate = "Author books cannot be null", Tag = "AuthorBooksNull")]
         public ICollection<Book> Books { get; set; }
     }
 }
