@@ -28,8 +28,8 @@ namespace DomainModel.Model
         /// <value>
         /// The extra days.
         /// </value>
-        [RangeValidator(0, RangeBoundaryType.Exclusive, uint.MaxValue, RangeBoundaryType.Ignore, MessageTemplate = "Extension days must be grater than 0")]
-        public uint ExtraDays { get; set; }
+        [RangeValidator(0, RangeBoundaryType.Exclusive, 356, RangeBoundaryType.Ignore, MessageTemplate = "Extension days must be grater than 0", Tag = "ExtentionsExtraDays")]
+        public int ExtraDays { get; set; }
 
         /// <summary>
         /// Gets or sets the creation date.
@@ -37,7 +37,7 @@ namespace DomainModel.Model
         /// <value>
         /// The creation date.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Extension creation date cannot be null")]
+        [DateTimeRangeValidator("2010-01-01T00:00:00", "2100-01-01T00:00:00", MessageTemplate = "Creation date must be after {1}", Tag = "ExtentionsCreationDate")]
         public DateTime CreationDate { get; set; }
 
         /// <summary>
@@ -46,7 +46,7 @@ namespace DomainModel.Model
         /// <value>
         /// The withdrawal.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Extension withdrawal cannot be null")]
+        [NotNullValidator(MessageTemplate = "Extension withdrawal cannot be null", Tag = "ExtentionWithdrawalNull")]
         public virtual Withdrawal Withdrawal { get; set; }
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace DomainModel.Model
         {
             if (this.CreationDate > DateTime.Today)
             {
-                validationResults.AddResult(new ValidationResult("Creation date cannot be in the future", this, "ValidateExtentionCreationDate", "error", null));
+                validationResults.AddResult(new ValidationResult("Creation date cannot be in the future", this, "CreationDate", "ValidateExtentionCreationDate", null));
             }
         }
     }

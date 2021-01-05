@@ -55,6 +55,8 @@
     </Compile>
     <Compile Include="Service\AuthorService.cs" />
     <Compile Include="Service\BookService.cs" />
+    <Compile Include="Service\DomainService.cs" />
+    <Compile Include="Service\ExtensionService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

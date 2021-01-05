@@ -112,10 +112,10 @@ namespace TestLibraryManagement
         }
 
         /// <summary>
-        /// Defines the test method TestAddInvalidLengthNameInBoundary.
+        /// Defines the test method TestAddValidLengthNameInBoundary.
         /// </summary>
         [Test]
-        public void TestAddInvalidLengthNameInBoundary()
+        public void TestAddValidLengthNameInBoundary()
         {
             var book = new Book
             {

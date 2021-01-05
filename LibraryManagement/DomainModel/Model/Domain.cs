@@ -26,7 +26,8 @@ namespace DomainModel.Model
         /// <value>
         /// The domain name.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Domain name cannot be null")]
+        [NotNullValidator(MessageTemplate = "Domain name cannot be null", Tag = "DomainNameNull")]
+        [StringLengthValidator(1, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Domain name should be between {3} and {5} characters", Tag = "DomainNameLength")]
         public string Name { get; set; }
 
         /// <summary>
@@ -35,6 +36,7 @@ namespace DomainModel.Model
         /// <value>
         /// The parent.
         /// </value>
+        [IgnoreNulls(Tag = "DomainParentNull")]
         public Domain Parent { get; set; }
 
         /// <summary>
@@ -43,7 +45,7 @@ namespace DomainModel.Model
         /// <value>
         /// The books.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Domain books cannot be null")]
+        [NotNullValidator(MessageTemplate = "Domain books cannot be null", Tag = "DomainBooksNull")]
         public virtual ICollection<Book> Books { get; set; }
     }
 }
