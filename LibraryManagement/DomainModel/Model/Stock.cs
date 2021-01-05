@@ -27,7 +27,8 @@ namespace DomainModel.Model
         /// <value>
         /// The initial stock.
         /// </value>
-        public uint InitialStock { get; set; }
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Ignore, MessageTemplate = "Stock initial stock must be grater than 0", Tag = "StockInitialStockInvalid")]
+        public int InitialStock { get; set; }
 
         /// <summary>
         /// Gets or sets the number of books for lecture.
@@ -35,7 +36,8 @@ namespace DomainModel.Model
         /// <value>
         /// The number of books for lecture.
         /// </value>
-        public uint NumberOfBooksForLecture { get; set; }
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Ignore, MessageTemplate = "Stock number of books for lecture must be grater than 0", Tag = "StockNumberOfBooksForLectureInvalid")]
+        public int NumberOfBooksForLecture { get; set; }
 
         /// <summary>
         /// Gets or sets the publication.
@@ -43,7 +45,7 @@ namespace DomainModel.Model
         /// <value>
         /// The publication.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Stock publication cannot be null")]
+        [NotNullValidator(MessageTemplate = "Stock publication cannot be null", Tag = "StockPublicationNull")]
         public virtual Publication Publication { get; set; }
 
         /// <summary>
@@ -55,7 +57,7 @@ namespace DomainModel.Model
         {
             if (this.NumberOfBooksForLecture > this.InitialStock)
             {
-                validationResults.AddResult(new ValidationResult("Number of books for lecture must be less than the initial stock", this, "ValidateBookStock", "error", null));
+                validationResults.AddResult(new ValidationResult("Number of books for lecture must be less than the initial stock", this, "Stock", "ValidateBookStock", null));
             }
         }
     }

@@ -61,6 +61,8 @@
     <Compile Include="Service\PublicationService.cs" />
     <Compile Include="Service\PublishingCompanyService.cs" />
     <Compile Include="Service\ReaderService.cs" />
+    <Compile Include="Service\StockService.cs" />
+    <Compile Include="Service\WithdrawalService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

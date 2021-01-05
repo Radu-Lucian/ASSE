@@ -2,7 +2,7 @@
 // Radu Lucian Andrei
 // </copyright>
 // <summary> Defines the Author Test class. </summary>
-namespace TestLibraryManagement
+namespace TestLibraryManagement.Test
 {
     using System;
     using System.Collections.Generic;

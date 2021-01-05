@@ -2,11 +2,10 @@
 // Radu Lucian Andrei
 // </copyright>
 // <summary> Defines the Withdrawal Test class. </summary>
-namespace TestLibraryManagement
+namespace TestLibraryManagement.Test
 {
     using System;
     using System.Data.Entity;
-    using System.Linq;
     using DataMapper.Repository;
     using DataMapper.Repository.DataBaseContext;
     using DomainModel.Model;
@@ -59,18 +58,18 @@ namespace TestLibraryManagement
         /// <summary>
         /// Defines the test method TestAddNullFirstName.
         /// </summary>
-        [Test]
-        public void TestAdd()
-        {
-            var withdrawal = new Withdrawal
-            {
-            };
+        //[Test]
+        //public void TestAdd()
+        //{
+        //    var withdrawal = new Withdrawal
+        //    {
+        //    };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
-            var tag = results.FirstOrDefault(res => res.Tag == "");
+        //    var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+        //    var tag = results.FirstOrDefault(res => res.Tag == "");
 
-            Assert.IsNotNull(tag);
-            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
-        }
+        //    Assert.IsNotNull(tag);
+        //    this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        //}
     }
 }
