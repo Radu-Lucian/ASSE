@@ -22,7 +22,12 @@ namespace DomainModel.Model
         /// <summary>
         /// The paper back.
         /// </summary>
-        PaperBack
+        PaperBack,
+
+        /// <summary>
+        /// Invalid type.
+        /// </summary>
+        Invalid
     }
 
     /// <summary>
@@ -45,8 +50,7 @@ namespace DomainModel.Model
         /// <value>
         /// The type of the cover.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Publication cover cannot be null")]
-        [DomainValidator(new Cover[] { Cover.HardCover, Cover.PaperBack }, MessageTemplate = "Unknown cover type")]
+        [DomainValidator(Cover.HardCover, Cover.PaperBack, MessageTemplate = "Unknown cover type", Tag = "PublicationCoverTypeInvalid")]
         public Cover CoverType { get; set; }
 
         /// <summary>
@@ -55,8 +59,7 @@ namespace DomainModel.Model
         /// <value>
         /// The number of pages.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Publication pages cannot be null")]
-        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Ignore, MessageTemplate = "Publication page number must be grater than 0")]
+        [RangeValidator(1, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Ignore, MessageTemplate = "Publication page number must be grater than 0", Tag = "PublicationNumberOfPagesInvalid")]
         public int NumberOfPages { get; set; }
 
         /// <summary>
@@ -73,7 +76,7 @@ namespace DomainModel.Model
         /// <value>
         /// The Publication book.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Publication book cannot be null")]
+        [NotNullValidator(MessageTemplate = "Publication book cannot be null", Tag = "PublicationBookNull")]
         public virtual Book Book { get; set; }
 
         /// <summary>
@@ -82,7 +85,7 @@ namespace DomainModel.Model
         /// <value>
         /// The stock.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Publication stock cannot be null")]
+        [NotNullValidator(MessageTemplate = "Publication stock cannot be null", Tag = "PublicationStockNull")]
         public virtual Stock Stock { get; set; }
 
         /// <summary>
@@ -91,7 +94,7 @@ namespace DomainModel.Model
         /// <value>
         /// The publishing company.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Publication publishing company cannot be null")]
+        [NotNullValidator(MessageTemplate = "Publication publishing company cannot be null", Tag = "PublicationPublishingCompanyNull")]
         public virtual PublishingCompany PublishingCompany { get; set; }
 
         /// <summary>
@@ -100,7 +103,7 @@ namespace DomainModel.Model
         /// <value>
         /// The book withdrawals.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Publication withdrawals cannot be null")]
+        [NotNullValidator(MessageTemplate = "Publication withdrawals cannot be null", Tag = "PublicationBookWithdrawalsNull")]
         public virtual ICollection<Withdrawal> BookWithdrawals { get; set; }
 
         /// <summary>
@@ -112,7 +115,7 @@ namespace DomainModel.Model
         {
             if (this.PublicationDate > DateTime.Now)
             {
-                validationResults.AddResult(new ValidationResult("Publication date cannot be higher than the current date", this, "ValidateDateTime", "error", null));
+                validationResults.AddResult(new ValidationResult("Publication date cannot be higher than the current date", this, "Publication", "ValidateDateTime", null));
             }
         }
     }

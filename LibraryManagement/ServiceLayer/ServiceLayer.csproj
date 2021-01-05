@@ -57,6 +57,10 @@
     <Compile Include="Service\BookService.cs" />
     <Compile Include="Service\DomainService.cs" />
     <Compile Include="Service\ExtensionService.cs" />
+    <Compile Include="Service\LibrarianService.cs" />
+    <Compile Include="Service\PublicationService.cs" />
+    <Compile Include="Service\PublishingCompanyService.cs" />
+    <Compile Include="Service\ReaderService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

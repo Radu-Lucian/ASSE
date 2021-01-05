@@ -28,8 +28,8 @@ namespace DomainModel.Model
         /// <value>
         /// The first name.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Reader first name cannot be null")]
-        [StringLengthValidator(2, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Ignore, ErrorMessage = "Reader first name should have at least {3} letters")]
+        [NotNullValidator(MessageTemplate = "Reader first name cannot be null", Tag = "ReaderFirstNameNull")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Reader first name should have at least {3} letters", Tag = "ReaderFirstNameLenght")]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -38,8 +38,8 @@ namespace DomainModel.Model
         /// <value>
         /// The last name.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Reader last name cannot be null")]
-        [StringLengthValidator(2, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Ignore, ErrorMessage = "Reader last name should have at least {3} letters")]
+        [NotNullValidator(MessageTemplate = "Reader last name cannot be null", Tag = "ReaderLastNameNull")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Reader last name should have at least {3} letters", Tag = "ReaderLastNameLenght")]
         public string LastName { get; set; }
 
         /// <summary>
@@ -48,7 +48,8 @@ namespace DomainModel.Model
         /// <value>
         /// The address.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Reader address name cannot be null")]
+        [NotNullValidator(MessageTemplate = "Reader address name cannot be null", Tag = "ReaderAddressNull")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Reader address should have at least {3} letters", Tag = "ReaderAddressLenght")]
         public string Address { get; set; }
 
         /// <summary>
@@ -57,7 +58,8 @@ namespace DomainModel.Model
         /// <value>
         /// The phone number.
         /// </value> 
-        [RegexValidator(@"^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$", MessageTemplate = "Reader phone number is invalid")] // https://regexr.com/39fv1
+        [IgnoreNulls(Tag = "ReaderPhoneNumberNull")]
+        [RegexValidator(@"^(\+4|)?(07[0-8]{1}[0-9]{1}|02[0-9]{2}|03[0-9]{2}){1}?(\s|\.|\-)?([0-9]{3}(\s|\.|\-|)){2}$", MessageTemplate = "Reader phone number is invalid", Tag = "ReaderPhoneNumberInvalid")] // https://regexr.com/39fv1
         public string PhoneNumber { get; set; }
 
         /// <summary>
@@ -66,7 +68,8 @@ namespace DomainModel.Model
         /// <value>
         /// The email address.
         /// </value>
-        [RegexValidator(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", MessageTemplate = "Reader email address is invalid")]
+        [IgnoreNulls(Tag = "ReaderEmailAddressNull")]
+        [RegexValidator(@"^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$", MessageTemplate = "Reader email address is invalid", Tag = "ReaderEmailAddressInvalid")]
         public string EmailAddress { get; set; }
 
         /// <summary>
@@ -75,8 +78,8 @@ namespace DomainModel.Model
         /// <value>
         /// The gender.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Reader gender cannot be null")]
-        [DomainValidator(new object[] { "m", "f", "M", "F" }, MessageTemplate = "Unknown gender")]
+        [NotNullValidator(MessageTemplate = "Reader gender cannot be null", Tag = "ReaderGenderNull")]
+        [DomainValidator("m", "f", "M", "F", MessageTemplate = "Reader Unknown gender", Tag = "ReaderGenderInvalid")]
         public string Gender { get; set; }
 
         /// <summary>
@@ -85,7 +88,7 @@ namespace DomainModel.Model
         /// <value>
         /// The withdrawals.
         /// </value>
-        [NotNullValidator(MessageTemplate = "Reader withdrawals cannot be null")]
+        [NotNullValidator(MessageTemplate = "Reader withdrawals cannot be null", Tag = "ReaderWithdrawalsNull")]
         public virtual ICollection<Withdrawal> Withdrawals { get; set; }
 
         /// <summary>
@@ -97,7 +100,7 @@ namespace DomainModel.Model
         {
             if (this.EmailAddress == null && this.PhoneNumber == null)
             {
-                validationResults.AddResult(new ValidationResult("Reader has no valid contact information", this, "ValidateReaderPhoneEmail", "error", null));
+                validationResults.AddResult(new ValidationResult("Reader has no valid contact information", this, "Reader", "ValidateReaderPhoneEmail", null));
             }
         }
     }

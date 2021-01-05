@@ -26,7 +26,8 @@ namespace DomainModel.Model
         /// <value>
         /// The publishing company name.
         /// </value>
-        [NotNullValidator(MessageTemplate = "PublishingCompany name cannot be null")]
+        [NotNullValidator(MessageTemplate = "PublishingCompany name cannot be null", Tag = "PublishingCompanyNameNull")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Publishing Company name should be between {3} and {5} characters", Tag = "PublishingCompanyNameLenght")]
         public string Name { get; set; }
 
         /// <summary>
@@ -35,7 +36,7 @@ namespace DomainModel.Model
         /// <value>
         /// The publication.
         /// </value>
-        [NotNullValidator(MessageTemplate = "PublishingCompany name cannot be null")]
+        [NotNullValidator(MessageTemplate = "PublishingCompany publications cannot be null", Tag = "PublishingCompanyPublicationsNull")]
         public virtual ICollection<Publication> Publications { get; set; }
     }
 }
