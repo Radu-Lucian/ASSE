@@ -87,7 +87,7 @@ namespace TestLibraryManagement
             };
 
             var results = this.BookService.CreateBook(book);
-            var tag = results.FirstOrDefault(res => res.Tag == "BookNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "BookNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
@@ -105,7 +105,7 @@ namespace TestLibraryManagement
             };
 
             var results = this.BookService.CreateBook(book);
-            var tag = results.FirstOrDefault(res => res.Tag == "BookNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "BookNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
@@ -123,7 +123,7 @@ namespace TestLibraryManagement
             };
 
             var results = this.BookService.CreateBook(book);
-            var tag = results.FirstOrDefault(res => res.Tag == "BookNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "BookNameLength");
 
             Assert.IsNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());

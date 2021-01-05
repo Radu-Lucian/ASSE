@@ -78,6 +78,7 @@ namespace TestLibraryManagement
         /// <summary>
         /// Defines the test method TestAddValidCoverType.
         /// </summary>
+        /// <param name="validCoverType">Type of the valid cover.</param>
         [TestCase(Cover.HardCover)]
         [TestCase(Cover.PaperBack)]
         public void TestAddValidCoverType(Cover validCoverType)

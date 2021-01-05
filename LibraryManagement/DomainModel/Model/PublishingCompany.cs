@@ -27,7 +27,7 @@ namespace DomainModel.Model
         /// The publishing company name.
         /// </value>
         [NotNullValidator(MessageTemplate = "PublishingCompany name cannot be null", Tag = "PublishingCompanyNameNull")]
-        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Publishing Company name should be between {3} and {5} characters", Tag = "PublishingCompanyNameLenght")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Publishing Company name should be between {3} and {5} characters", Tag = "PublishingCompanyNameLength")]
         public string Name { get; set; }
 
         /// <summary>

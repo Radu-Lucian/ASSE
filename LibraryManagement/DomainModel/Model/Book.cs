@@ -30,7 +30,7 @@ namespace DomainModel.Model
         /// The book name.
         /// </value>
         [NotNullValidator(MessageTemplate = "Book name cannot be null", Tag = "BookNameNull")]
-        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Book name should be between {3} and {5} characters", Tag = "BookNameLenght")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Book name should be between {3} and {5} characters", Tag = "BookNameLength")]
         public string Name { get; set; }
 
         /// <summary>

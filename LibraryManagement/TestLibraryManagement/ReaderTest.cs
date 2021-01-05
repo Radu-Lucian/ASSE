@@ -15,13 +15,27 @@ namespace TestLibraryManagement
     using NUnit.Framework;
     using ServiceLayer.Service;
 
+    /// <summary>
+    /// Defines test class ReaderTest.
+    /// </summary>
     [TestFixture]
     public class ReaderTest
     {
+        /// <summary>
+        /// Gets or sets the reader service.
+        /// </summary>
+        /// <value>The reader service.</value>
         private ReaderService ReaderService { get; set; }
 
+        /// <summary>
+        /// Gets or sets the library context mock.
+        /// </summary>
+        /// <value>The library context mock.</value>
         private Mock<LibraryManagementContext> LibraryContextMock { get; set; }
 
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -33,6 +47,9 @@ namespace TestLibraryManagement
             this.ReaderService = new ReaderService(new ReaderRepository(this.LibraryContextMock.Object));
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullReader.
+        /// </summary>
         [Test]
         public void TestAddNullReader()
         {
@@ -42,6 +59,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullFirstName.
+        /// </summary>
         [Test]
         public void TestAddNullFirstName()
         {
@@ -57,8 +77,11 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidLengthFirstNameLowerBoundary.
+        /// </summary>
         [Test]
-        public void TestAddInvalidLenghtFirstNameLowerBoundary()
+        public void TestAddInvalidLengthFirstNameLowerBoundary()
         {
             var reader = new Reader
             {
@@ -66,14 +89,17 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidLengthFirstNameUpperBoundary.
+        /// </summary>
         [Test]
-        public void TestAddInvalidLenghtFirstNameUpperBoundary()
+        public void TestAddInvalidLengthFirstNameUpperBoundary()
         {
             var reader = new Reader
             {
@@ -81,14 +107,17 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidLengthFirstName.
+        /// </summary>
         [Test]
-        public void TestAddValidLenghtFirstName()
+        public void TestAddValidLengthFirstName()
         {
             var reader = new Reader
             {
@@ -96,12 +125,15 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLength");
 
             Assert.IsNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullLastName.
+        /// </summary>
         [Test]
         public void TestAddNullLastName()
         {
@@ -111,14 +143,17 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidLengthLastNameLowerBoundary.
+        /// </summary>
         [Test]
-        public void TestAddInvalidLenghtLastNameLowerBoundary()
+        public void TestAddInvalidLengthLastNameLowerBoundary()
         {
             var reader = new Reader
             {
@@ -126,14 +161,17 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidLengthLastNameUpperBoundary.
+        /// </summary>
         [Test]
-        public void TestAddInvalidLenghtLastNameUpperBoundary()
+        public void TestAddInvalidLengthLastNameUpperBoundary()
         {
             var reader = new Reader
             {
@@ -141,14 +179,17 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidLengthLastName.
+        /// </summary>
         [Test]
-        public void TestAddValidLenghtLastName()
+        public void TestAddValidLengthLastName()
         {
             var reader = new Reader
             {
@@ -156,12 +197,15 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLength");
 
             Assert.IsNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullAddress.
+        /// </summary>
         [Test]
         public void TestAddNullAddress()
         {
@@ -177,8 +221,11 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidLengthAddressLowerBoundary.
+        /// </summary>
         [Test]
-        public void TestAddInvalidLenghtAddressLowerBoundary()
+        public void TestAddInvalidLengthAddressLowerBoundary()
         {
             var reader = new Reader
             {
@@ -186,14 +233,17 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidLengthAddressUpperBoundary.
+        /// </summary>
         [Test]
-        public void TestAddInvalidLenghtAddressUpperBoundary()
+        public void TestAddInvalidLengthAddressUpperBoundary()
         {
             var reader = new Reader
             {
@@ -201,14 +251,17 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidLengthAddress.
+        /// </summary>
         [Test]
-        public void TestAddValidLenghtAddress()
+        public void TestAddValidLengthAddress()
         {
             var reader = new Reader
             {
@@ -216,12 +269,15 @@ namespace TestLibraryManagement
             };
 
             var results = this.ReaderService.CreateReader(reader);
-            var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLength");
 
             Assert.IsNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullPhoneNumber.
+        /// </summary>
         [Test]
         public void TestAddNullPhoneNumber()
         {
@@ -237,12 +293,15 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddEmptyPhoneNumber.
+        /// </summary>
         [Test]
         public void TestAddEmptyPhoneNumber()
         {
             var reader = new Reader
             {
-                PhoneNumber = ""
+                PhoneNumber = string.Empty
             };
 
             var results = this.ReaderService.CreateReader(reader);
@@ -252,6 +311,10 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidPhoneNumber.
+        /// </summary>
+        /// <param name="invalidPhoneNumber">The invalid phone number.</param>
         [TestCase("0413564864")]
         [TestCase("0790512346")]
         [TestCase("867-5309")]
@@ -269,6 +332,10 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidPhoneNumber.
+        /// </summary>
+        /// <param name="validPhoneNumber">The valid phone number.</param>
         [TestCase("+40213.564.864")]
         [TestCase("+40213 564 864")]
         [TestCase("0213-564-864")]
@@ -288,6 +355,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullEmailAddress.
+        /// </summary>
         [Test]
         public void TestAddNullEmailAddress()
         {
@@ -303,12 +373,15 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddEmptyEmailAddress.
+        /// </summary>
         [Test]
         public void TestAddEmptyEmailAddress()
         {
             var reader = new Reader
             {
-                EmailAddress = ""
+                EmailAddress = string.Empty
             };
 
             var results = this.ReaderService.CreateReader(reader);
@@ -318,6 +391,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidEmailAddress.
+        /// </summary>
         [Test]
         public void TestAddInvalidEmailAddress()
         {
@@ -333,6 +409,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidEmailAddress.
+        /// </summary>
         [Test]
         public void TestAddValidEmailAddress()
         {
@@ -348,6 +427,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidContactInformation.
+        /// </summary>
         [Test]
         public void TestAddInvalidContactInformation()
         {
@@ -367,6 +449,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidContactInformationWithEmail.
+        /// </summary>
         [Test]
         public void TestAddValidContactInformationWithEmail()
         {
@@ -387,6 +472,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidContactInformationWithPhoneNumber.
+        /// </summary>
         [Test]
         public void TestAddValidContactInformationWithPhoneNumber()
         {
@@ -407,6 +495,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullGender.
+        /// </summary>
         [Test]
         public void TestAddNullGender()
         {
@@ -422,6 +513,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidGender.
+        /// </summary>
         [Test]
         public void TestAddInvalidGender()
         {
@@ -437,6 +531,10 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidGender.
+        /// </summary>
+        /// <param name="validGender">The valid gender.</param>
         [TestCase("M")]
         [TestCase("m")]
         [TestCase("F")]
@@ -455,6 +553,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullWithdrawals.
+        /// </summary>
         [Test]
         public void TestAddNullWithdrawals()
         {
@@ -470,6 +571,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddEmptyWithdrawals.
+        /// </summary>
         [Test]
         public void TestAddEmptyWithdrawals()
         {
@@ -485,6 +589,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidWithdrawals.
+        /// </summary>
         [Test]
         public void TestAddValidWithdrawals()
         {
@@ -500,6 +607,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidReader.
+        /// </summary>
         [Test]
         public void TestAddValidReader()
         {

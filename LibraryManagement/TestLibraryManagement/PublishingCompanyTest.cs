@@ -1,4 +1,4 @@
-﻿// <copyright file="PublishingCompany.cs" company="Transilvania University Of Brasov">
+﻿// <copyright file="PublishingCompanyTest.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
 // <summary> Defines the PublishingCompany Test class. </summary>
@@ -15,12 +15,26 @@ namespace TestLibraryManagement
     using NUnit.Framework;
     using ServiceLayer.Service;
 
+    /// <summary>
+    /// Class PublishingCompanyTest.
+    /// </summary>
     public class PublishingCompanyTest
     {
+        /// <summary>
+        /// Gets or sets the publishing company service.
+        /// </summary>
+        /// <value>The publishing company service.</value>
         private PublishingCompanyService PublishingCompanyService { get; set; }
 
+        /// <summary>
+        /// Gets or sets the library context mock.
+        /// </summary>
+        /// <value>The library context mock.</value>
         private Mock<LibraryManagementContext> LibraryContextMock { get; set; }
 
+        /// <summary>
+        /// Setups this instance.
+        /// </summary>
         [SetUp]
         public void Setup()
         {
@@ -30,6 +44,9 @@ namespace TestLibraryManagement
             this.PublishingCompanyService = new PublishingCompanyService(new PublishingCompanyRepository(this.LibraryContextMock.Object));
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullPublishingCompany.
+        /// </summary>
         [Test]
         public void TestAddNullPublishingCompany()
         {
@@ -39,6 +56,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullName.
+        /// </summary>
         [Test]
         public void TestAddNullName()
         {
@@ -54,6 +74,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidNameLowerBoundary.
+        /// </summary>
         [Test]
         public void TestAddInvalidNameLowerBoundary()
         {
@@ -63,12 +86,15 @@ namespace TestLibraryManagement
             };
 
             var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
-            var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddInvalidNameUpperBoundary.
+        /// </summary>
         [Test]
         public void TestAddInvalidNameUpperBoundary()
         {
@@ -78,14 +104,17 @@ namespace TestLibraryManagement
             };
 
             var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
-            var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLength");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidLengthName.
+        /// </summary>
         [Test]
-        public void TestAddValidLenghtName()
+        public void TestAddValidLengthName()
         {
             var publishingCompany = new PublishingCompany
             {
@@ -93,12 +122,15 @@ namespace TestLibraryManagement
             };
 
             var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
-            var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLenght");
+            var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLength");
 
             Assert.IsNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddNullPublications.
+        /// </summary>
         [Test]
         public void TestAddNullPublications()
         {
@@ -114,6 +146,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddEmptyPublications.
+        /// </summary>
         [Test]
         public void TestAddEmptyPublications()
         {
@@ -129,6 +164,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidPublications.
+        /// </summary>
         [Test]
         public void TestAddValidPublications()
         {
@@ -144,6 +182,9 @@ namespace TestLibraryManagement
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
+        /// <summary>
+        /// Defines the test method TestAddValidPublishingCompany.
+        /// </summary>
         [Test]
         public void TestAddValidPublishingCompany()
         {
