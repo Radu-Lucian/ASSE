@@ -165,10 +165,10 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
-        /// Defines the test method TestAddInalidPublication.
+        /// Defines the test method TestAddInvalidPublication.
         /// </summary>
         [Test]
-        public void TestAddInalidPublication()
+        public void TestAddInvalidPublication()
         {
             var stock = new Stock
             {

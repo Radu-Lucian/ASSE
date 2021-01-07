@@ -399,7 +399,7 @@ namespace TestLibraryManagement.Test
         {
             var reader = new Reader
             {
-                EmailAddress = "not a email address"
+                EmailAddress = "not an email address"
             };
 
             var results = this.ReaderService.CreateReader(reader);
