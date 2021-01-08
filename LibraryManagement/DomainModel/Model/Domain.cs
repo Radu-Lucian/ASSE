@@ -27,7 +27,7 @@ namespace DomainModel.Model
         /// The domain name.
         /// </value>
         [NotNullValidator(MessageTemplate = "Domain name cannot be null", Tag = "DomainNameNull")]
-        [StringLengthValidator(1, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Domain name should be between {3} and {5} characters", Tag = "DomainNameLength")]
+        [StringLengthValidator(1, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, MessageTemplate = "Domain name should be between 1 and 200 characters", Tag = "DomainNameLength")]
         public string Name { get; set; }
 
         /// <summary>

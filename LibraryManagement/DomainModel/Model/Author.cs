@@ -27,7 +27,7 @@ namespace DomainModel.Model
         /// The first name.
         /// </value>
         [NotNullValidator(MessageTemplate = "Author first name cannot be null", Tag = "AuthorFirstNameNull")]
-        [StringLengthValidator(1, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Author first name should be between {3} and {5} characters", Tag = "AuthorFirstNameLength")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, MessageTemplate = "Author first name should be between 2 and 200 characters", Tag = "AuthorFirstNameLength")]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace DomainModel.Model
         /// The last name.
         /// </value>
         [NotNullValidator(MessageTemplate = "Author last name cannot be null", Tag = "AuthorLastNameNull")]
-        [StringLengthValidator(1, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Author last name should be between {3} and {5} characters", Tag = "AuthorLastNameLength")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, MessageTemplate = "Author last name should be between 2 and 200 characters", Tag = "AuthorLastNameLength")]
         public string LastName { get; set; }
 
         /// <summary>

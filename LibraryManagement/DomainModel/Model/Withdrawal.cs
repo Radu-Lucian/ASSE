@@ -31,7 +31,7 @@ namespace DomainModel.Model
         /// <value>
         /// The rented date.
         /// </value>
-        [DateTimeRangeValidator("2010-01-01T00:00:00", "2100-01-01T00:00:00", MessageTemplate = "Withdrawal rented date must be after {1}", Tag = "WithdrawalRentedDate")]
+        [DateTimeRangeValidator("2010-01-01T00:00:00", "2100-01-01T00:00:00", MessageTemplate = "Withdrawal rented date must be after 2010-01-01 but before 2100-01-01", Tag = "WithdrawalRentedDate")]
         public DateTime RentedDate { get; set; }
 
         /// <summary>
@@ -40,7 +40,7 @@ namespace DomainModel.Model
         /// <value>
         /// The due date.
         /// </value>
-        [DateTimeRangeValidator("2010-01-01T00:00:00", "2100-01-01T00:00:00", MessageTemplate = "Withdrawal due date must be after {1}", Tag = "WithdrawalDueDate")]
+        [DateTimeRangeValidator("2010-01-01T00:00:00", "2100-01-01T00:00:00", MessageTemplate = "Withdrawal due date must be after 2010-01-01 but before 2100-01-01", Tag = "WithdrawalDueDate")]
         public DateTime DueDate { get; set; }
 
         /// <summary>
@@ -77,14 +77,33 @@ namespace DomainModel.Model
         [SelfValidation]
         public void Validate(ValidationResults validationResults)
         {
+            int maxBooksPerInterval = ApplicationOptions.Options.NMC;
+            int maxBooksPerWithdrawal = ApplicationOptions.Options.C;
+            int maxBooksPerDomain = ApplicationOptions.Options.D;
+            int maxExtensions = ApplicationOptions.Options.LIM;
+            int rentedBookPeriod = ApplicationOptions.Options.PER;
+            int bookGracePeriod = ApplicationOptions.Options.DELTA;
+            int maxBooksPerDay = ApplicationOptions.Options.NCZ;
+
+            if (this.Reader is Librarian)
+            {
+                maxBooksPerInterval *= 2;
+                maxBooksPerWithdrawal *= 2;
+                maxBooksPerDomain *= 2;
+                maxExtensions *= 2;
+                rentedBookPeriod /= 2;
+                bookGracePeriod /= 2;
+                maxBooksPerDay = int.MaxValue;
+            }
+
             if (this.Publications.Count == 0)
             {
                 validationResults.AddResult(new ValidationResult("Publications is empty", this, "Withdrawal", "ValidatePublications", null));
             }
 
-            if (this.Publications.Count > ApplicationOptions.Options.C)
+            if (this.Publications.Count > maxBooksPerWithdrawal)
             {
-                validationResults.AddResult(new ValidationResult("Cannot withdraw more books than \"C\"", this, "Withdrawal", "ValidatePublicationsC", null));
+                validationResults.AddResult(new ValidationResult($"Cannot withdraw more books than {maxBooksPerWithdrawal}", this, "Withdrawal", "ValidatePublicationsC", null));
             }
 
             {
@@ -116,9 +135,9 @@ namespace DomainModel.Model
 
             {
                 var orderedExtentions = this.Extensions.Where(element => element.CreationDate >= DateTime.Today.AddMonths(-3)).Count();
-                if (orderedExtentions > ApplicationOptions.Options.LIM)
+                if (orderedExtentions > maxExtensions)
                 {
-                    validationResults.AddResult(new ValidationResult("Number of extensions in last 3 months cannot be grater than \"LIM\"", this, "Withdrawal", "ValidateExtentions", null));
+                    validationResults.AddResult(new ValidationResult($"Number of extensions in last 3 months cannot be grater than {maxExtensions}", this, "Withdrawal", "ValidateExtentions", null));
                 }
             }
 
@@ -137,15 +156,15 @@ namespace DomainModel.Model
                 var numberOfBooksRentedInPeriod = 0;
                 foreach (var withdrawal in this.Reader.Withdrawals)
                 {
-                    if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays > ApplicationOptions.Options.PER)
+                    if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays > rentedBookPeriod)
                     {
                         numberOfBooksRentedInPeriod += withdrawal.Publications.Count;
                     }
                 }
 
-                if (numberOfBooksRentedInPeriod + this.Publications.Count > ApplicationOptions.Options.NMC)
+                if (numberOfBooksRentedInPeriod + this.Publications.Count > maxBooksPerInterval)
                 {
-                    validationResults.AddResult(new ValidationResult("Number of rented books within the period \"PER\" cannot be grater than \"NMC\"", this, "Withdrawal", "ValidateExtentions", null));
+                    validationResults.AddResult(new ValidationResult($"Number of rented books within the period {rentedBookPeriod} cannot be grater than {maxBooksPerInterval}", this, "Withdrawal", "ValidateExtentions", null));
                 }
             }
 
@@ -201,9 +220,9 @@ namespace DomainModel.Model
 
                 foreach (var domain in domains)
                 {
-                    if (domain.Value > ApplicationOptions.Options.D)
+                    if (domain.Value > maxBooksPerDomain)
                     {
-                        validationResults.AddResult(new ValidationResult("Cannot borrow more than \"D\" books that are from the same domain within a period \"L\"  ", this, "Withdrawal", "ValidateWithdrawalBookDomain", null));
+                        validationResults.AddResult(new ValidationResult($"Cannot borrow more than {maxBooksPerDomain} books that are from the same domain within a period {ApplicationOptions.Options.L}", this, "Withdrawal", "ValidateWithdrawalBookDomain", null));
                     }
                 }
             }
@@ -218,9 +237,9 @@ namespace DomainModel.Model
                     }
                 }
 
-                if (numberOfBooksRentedInPeriod + this.Publications.Count > ApplicationOptions.Options.NCZ)
+                if (numberOfBooksRentedInPeriod + this.Publications.Count > maxBooksPerDay)
                 {
-                    validationResults.AddResult(new ValidationResult("Number of rented books within one day cannot be grater than \"NCZ\"", this, "Withdrawal", "ValidateWithdrawalBookDay", null));
+                    validationResults.AddResult(new ValidationResult($"Number of rented books within one day cannot be grater than {maxBooksPerDay}", this, "Withdrawal", "ValidateWithdrawalBookDay", null));
                 }
             }
 
@@ -230,7 +249,7 @@ namespace DomainModel.Model
                 {
                     foreach (var publication in withdrawal.Publications)
                     {
-                        if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays < ApplicationOptions.Options.DELTA)
+                        if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays < bookGracePeriod)
                         {
                             booksThatHaveNotPassedTheGracePeriod.Add(publication.Book.Name);
                         }
@@ -241,7 +260,7 @@ namespace DomainModel.Model
                 {
                     if (booksThatHaveNotPassedTheGracePeriod.Contains(publication.Book.Name))
                     {
-                        validationResults.AddResult(new ValidationResult("A book cannot be borrowed another time within a grace period \"DELTA\"", this, "Withdrawal", "ValidateWithdrawalSameBookGraceDate", null));
+                        validationResults.AddResult(new ValidationResult($"A book cannot be borrowed another time within a grace period {bookGracePeriod}", this, "Withdrawal", "ValidateWithdrawalSameBookGraceDate", null));
                     }
                 }
             }

@@ -29,7 +29,7 @@ namespace DomainModel.Model
         /// The first name.
         /// </value>
         [NotNullValidator(MessageTemplate = "Reader first name cannot be null", Tag = "ReaderFirstNameNull")]
-        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Reader first name should have at least {3} letters", Tag = "ReaderFirstNameLength")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, MessageTemplate = "Reader first name should be between 2 and 200 characters", Tag = "ReaderFirstNameLength")]
         public string FirstName { get; set; }
 
         /// <summary>
@@ -39,7 +39,7 @@ namespace DomainModel.Model
         /// The last name.
         /// </value>
         [NotNullValidator(MessageTemplate = "Reader last name cannot be null", Tag = "ReaderLastNameNull")]
-        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Reader last name should have at least {3} letters", Tag = "ReaderLastNameLength")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, MessageTemplate = "Reader last name should be between 2 and 200 characters", Tag = "ReaderLastNameLength")]
         public string LastName { get; set; }
 
         /// <summary>
@@ -49,7 +49,7 @@ namespace DomainModel.Model
         /// The address.
         /// </value>
         [NotNullValidator(MessageTemplate = "Reader address name cannot be null", Tag = "ReaderAddressNull")]
-        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Reader address should have at least {3} letters", Tag = "ReaderAddressLength")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, MessageTemplate = "Reader address should be between 2 and 200 characters", Tag = "ReaderAddressLength")]
         public string Address { get; set; }
 
         /// <summary>

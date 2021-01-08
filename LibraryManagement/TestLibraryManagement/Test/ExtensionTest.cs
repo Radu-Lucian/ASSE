@@ -57,14 +57,32 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
-        /// Defines the test method TestAddInvalidExtraDays.
+        /// Defines the test method TestAddInvalidExtraDaysLowerBoundary.
         /// </summary>
         [Test]
-        public void TestAddInvalidExtraDays()
+        public void TestAddInvalidExtraDaysLowerBoundary()
         {
             var extention = new Extension
             {
                 ExtraDays = 0
+            };
+
+            var results = this.ExtensionService.CreateExtension(extention);
+            var tag = results.FirstOrDefault(res => res.Tag == "ExtentionsExtraDays");
+
+            Assert.IsNotNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestAddInvalidExtraDaysUpperBoundary.
+        /// </summary>
+        [Test]
+        public void TestAddInvalidExtraDaysUpperBoundary()
+        {
+            var extention = new Extension
+            {
+                ExtraDays = 370
             };
 
             var results = this.ExtensionService.CreateExtension(extention);

@@ -30,7 +30,7 @@ namespace DomainModel.Model
         /// The book name.
         /// </value>
         [NotNullValidator(MessageTemplate = "Book name cannot be null", Tag = "BookNameNull")]
-        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, ErrorMessage = "Book name should be between {3} and {5} characters", Tag = "BookNameLength")]
+        [StringLengthValidator(2, RangeBoundaryType.Inclusive, 200, RangeBoundaryType.Inclusive, MessageTemplate = "Book name should be between 1 and 200 characters", Tag = "BookNameLength")]
         public string Name { get; set; }
 
         /// <summary>
@@ -74,7 +74,7 @@ namespace DomainModel.Model
 
             if (this.Domains.Count > ApplicationOptions.Options.DOM)
             {
-                validationResults.AddResult(new ValidationResult("Number of domains is higher than DOM", this, "Domains", "ValidateDomainsDOM", null));
+                validationResults.AddResult(new ValidationResult($"Number of domains is higher than {ApplicationOptions.Options.DOM}", this, "Domains", "ValidateDomainsDOM", null));
             }
 
             {

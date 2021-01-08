@@ -28,7 +28,7 @@ namespace DomainModel.Model
         /// <value>
         /// The extra days.
         /// </value>
-        [RangeValidator(0, RangeBoundaryType.Exclusive, 356, RangeBoundaryType.Ignore, MessageTemplate = "Extension days must be grater than 0", Tag = "ExtentionsExtraDays")]
+        [RangeValidator(0, RangeBoundaryType.Exclusive, 365, RangeBoundaryType.Inclusive, MessageTemplate = "Extension days must be grater than 0 but not higher than 365", Tag = "ExtentionsExtraDays")]
         public int ExtraDays { get; set; }
 
         /// <summary>
@@ -37,7 +37,7 @@ namespace DomainModel.Model
         /// <value>
         /// The creation date.
         /// </value>
-        [DateTimeRangeValidator("2010-01-01T00:00:00", "2100-01-01T00:00:00", MessageTemplate = "Creation date must be after {1}", Tag = "ExtentionsCreationDate")]
+        [DateTimeRangeValidator("2010-01-01T00:00:00", "2100-01-01T00:00:00", MessageTemplate = "Creation date must be after 2010-01-01 but before 2100-01-01", Tag = "ExtentionsCreationDate")]
         public DateTime CreationDate { get; set; }
 
         /// <summary>
