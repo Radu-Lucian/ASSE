@@ -494,6 +494,186 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestAddInvalidPublicationStockAllBooksLecture.
+        /// </summary>
+        [Test]
+        public void TestAddInvalidPublicationStockAllBooksLecture()
+        {
+            var book = new Book { Name = "Stars" };
+
+            var stock = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 50 };
+
+            var publication = new Publication { NumberOfPages = 487, Book = book, Stock = stock };
+
+            var withdrawal = new Withdrawal
+            {
+                Publications = new List<Publication>()
+                {
+                    publication
+                },
+                Extensions = new List<Extension>()
+            };
+
+            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
+
+            Assert.IsNotNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestAddInvalidPublicationStockLess10Percent.
+        /// </summary>
+        [Test]
+        public void TestAddInvalidPublicationStockLess10Percent()
+        {
+            var book = new Book { Name = "Stars" };
+
+            var stock = new Stock { InitialStock = 50, RentedStock = 37, NumberOfBooksForLecture = 10 };
+
+            var publication = new Publication { NumberOfPages = 487, Book = book, Stock = stock };
+
+            var withdrawal = new Withdrawal
+            {
+                Publications = new List<Publication>()
+                {
+                    publication
+                },
+                Extensions = new List<Extension>()
+            };
+
+            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
+
+            Assert.IsNotNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestAddInvalidMultiplePublicationStockAllBooksLecture.
+        /// </summary>
+        [Test]
+        public void TestAddInvalidMultiplePublicationStockAllBooksLecture()
+        {
+            var book1 = new Book { Name = "Stars" };
+            var book2 = new Book { Name = "Galaxies" };
+
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+            var stock2 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 50 };
+
+            var publication1 = new Publication { NumberOfPages = 487, Book = book1, Stock = stock1 };
+            var publication2 = new Publication { NumberOfPages = 487, Book = book2, Stock = stock2 };
+
+            var withdrawal = new Withdrawal
+            {
+                Publications = new List<Publication>()
+                {
+                    publication1,
+                    publication2
+                },
+                Extensions = new List<Extension>()
+            };
+
+            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
+
+            Assert.IsNotNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestAddInvalidMultiplePublicationStockLess10Percent.
+        /// </summary>
+        [Test]
+        public void TestAddInvalidMultiplePublicationStockLess10Percent()
+        {
+            var book1 = new Book { Name = "Stars" };
+            var book2 = new Book { Name = "Galaxies" };
+
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+            var stock2 = new Stock { InitialStock = 50, RentedStock = 37, NumberOfBooksForLecture = 50 };
+
+            var publication1 = new Publication { NumberOfPages = 487, Book = book1, Stock = stock1 };
+            var publication2 = new Publication { NumberOfPages = 487, Book = book2, Stock = stock2 };
+
+            var withdrawal = new Withdrawal
+            {
+                Publications = new List<Publication>()
+                {
+                    publication1,
+                    publication2
+                },
+                Extensions = new List<Extension>()
+            };
+
+            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
+
+            Assert.IsNotNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestAddValidMultiplePublicationStock.
+        /// </summary>
+        [Test]
+        public void TestAddValidMultiplePublicationStock()
+        {
+            var book1 = new Book { Name = "Stars" };
+            var book2 = new Book { Name = "Galaxies" };
+
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+            var stock2 = new Stock { InitialStock = 50, RentedStock = 32, NumberOfBooksForLecture = 50 };
+
+            var publication1 = new Publication { NumberOfPages = 487, Book = book1, Stock = stock1 };
+            var publication2 = new Publication { NumberOfPages = 487, Book = book2, Stock = stock2 };
+
+            var withdrawal = new Withdrawal
+            {
+                Publications = new List<Publication>()
+                {
+                    publication1,
+                    publication2
+                },
+                Extensions = new List<Extension>()
+            };
+
+            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
+
+            Assert.IsNotNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestAddValidPublicationStock.
+        /// </summary>
+        [Test]
+        public void TestAddValidPublicationStock()
+        {
+            var book = new Book { Name = "Stars" };
+
+            var stock = new Stock { InitialStock = 50, RentedStock = 32, NumberOfBooksForLecture = 10 };
+
+            var publication = new Publication { NumberOfPages = 487, Book = book, Stock = stock };
+
+            var withdrawal = new Withdrawal
+            {
+                Publications = new List<Publication>()
+                {
+                    publication
+                },
+                Extensions = new List<Extension>()
+            };
+
+            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
+
+            Assert.IsNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
         /// Defines the test method TestAddInvalidExtensionsCount.
         /// </summary>
         [Test]
@@ -563,9 +743,11 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddInvalidNumberOfRentedBooksWithinPeriodOneWithdrawal()
         {
-            var readerPublication1 = new Publication { NumberOfPages = 5 };
-            var readerPublication2 = new Publication { NumberOfPages = 5 };
-            var readerPublication3 = new Publication { NumberOfPages = 5 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var readerPublication1 = new Publication { NumberOfPages = 5, Stock = stock1 };
+            var readerPublication2 = new Publication { NumberOfPages = 5, Stock = stock1 };
+            var readerPublication3 = new Publication { NumberOfPages = 5, Stock = stock1 };
 
             var readerWithdrawal1 = new Withdrawal
             {
@@ -589,7 +771,7 @@ namespace TestLibraryManagement.Test
 
             var withdrawal = new Withdrawal
             {
-                Publications = new List<Publication> { new Publication { NumberOfPages = 10 } },
+                Publications = new List<Publication> { new Publication { NumberOfPages = 10, Stock = stock1 } },
                 Extensions = new List<Extension>(),
                 Reader = reader
             };
@@ -649,9 +831,11 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddInvalidNumberOfRentedBooksWithinPeriodMultipleWithdrawals()
         {
-            var readerPublication1 = new Publication { NumberOfPages = 5 };
-            var readerPublication2 = new Publication { NumberOfPages = 5 };
-            var readerPublication3 = new Publication { NumberOfPages = 5 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var readerPublication1 = new Publication { NumberOfPages = 5, Stock = stock1 };
+            var readerPublication2 = new Publication { NumberOfPages = 5, Stock = stock1 };
+            var readerPublication3 = new Publication { NumberOfPages = 5, Stock = stock1 };
 
             var readerWithdrawal1 = new Withdrawal
             {
@@ -685,7 +869,7 @@ namespace TestLibraryManagement.Test
 
             var withdrawal = new Withdrawal
             {
-                Publications = new List<Publication> { new Publication { NumberOfPages = 10 } },
+                Publications = new List<Publication> { new Publication { NumberOfPages = 10, Stock = stock1 } },
                 Extensions = new List<Extension>(),
                 Reader = reader
             };
@@ -759,8 +943,10 @@ namespace TestLibraryManagement.Test
             var book1 = new Book { Domains = new List<Domain> { domain1 } };
             var book2 = new Book { Domains = new List<Domain> { domain1 } };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
+            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
 
             var readerWithdrawal1 = new Withdrawal
             {
@@ -783,8 +969,8 @@ namespace TestLibraryManagement.Test
 
             var withdrawalBook1 = new Book { Domains = new List<Domain> { domain1 } };
             var withdrawalBook2 = new Book { Domains = new List<Domain> { domain1 } };
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
+            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
+            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock1 };
 
             var withdrawal = new Withdrawal
             {
@@ -861,8 +1047,10 @@ namespace TestLibraryManagement.Test
             var book1 = new Book { Domains = new List<Domain> { domain1 } };
             var book2 = new Book { Domains = new List<Domain> { domain1 } };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
+            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
 
             var readerWithdrawal1 = new Withdrawal
             {
@@ -895,8 +1083,8 @@ namespace TestLibraryManagement.Test
 
             var withdrawalBook1 = new Book { Domains = new List<Domain> { domain1 } };
             var withdrawalBook2 = new Book { Domains = new List<Domain> { domain1 } };
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
+            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
+            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock1 };
 
             var withdrawal = new Withdrawal
             {
@@ -983,8 +1171,10 @@ namespace TestLibraryManagement.Test
             var book1 = new Book { Domains = new List<Domain> { domain1 } };
             var book2 = new Book { Domains = new List<Domain> { domain1 } };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
+            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
 
             var readerWithdrawal = new Withdrawal
             {
@@ -1010,10 +1200,10 @@ namespace TestLibraryManagement.Test
             var withdrawalBook3 = new Book { Domains = new List<Domain> { new Domain { Name = "Science" } } };
             var withdrawalBook4 = new Book { Domains = new List<Domain> { new Domain { Name = "Philosophy" } } };
 
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
-            var withdrawalPublication3 = new Publication { NumberOfPages = 10, Book = withdrawalBook3 };
-            var withdrawalPublication4 = new Publication { NumberOfPages = 10, Book = withdrawalBook4 };
+            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
+            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock1 };
+            var withdrawalPublication3 = new Publication { NumberOfPages = 10, Book = withdrawalBook3, Stock = stock1 };
+            var withdrawalPublication4 = new Publication { NumberOfPages = 10, Book = withdrawalBook4, Stock = stock1 };
 
             var withdrawal = new Withdrawal
             {
@@ -1106,8 +1296,10 @@ namespace TestLibraryManagement.Test
             var book1 = new Book { Domains = new List<Domain> { domain1 } };
             var book2 = new Book { Domains = new List<Domain> { domain1 } };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
+            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
 
             var readerWithdrawal1 = new Withdrawal
             {
@@ -1143,10 +1335,10 @@ namespace TestLibraryManagement.Test
             var withdrawalBook3 = new Book { Domains = new List<Domain> { new Domain { Name = "Science" } } };
             var withdrawalBook4 = new Book { Domains = new List<Domain> { new Domain { Name = "Philosophy" } } };
 
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
-            var withdrawalPublication3 = new Publication { NumberOfPages = 10, Book = withdrawalBook3 };
-            var withdrawalPublication4 = new Publication { NumberOfPages = 10, Book = withdrawalBook4 };
+            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
+            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock1 };
+            var withdrawalPublication3 = new Publication { NumberOfPages = 10, Book = withdrawalBook3, Stock = stock1 };
+            var withdrawalPublication4 = new Publication { NumberOfPages = 10, Book = withdrawalBook4, Stock = stock1 };
 
             var withdrawal = new Withdrawal
             {
@@ -1249,8 +1441,10 @@ namespace TestLibraryManagement.Test
             var book1 = new Book { Domains = new List<Domain> { domain1 }, Name = "book1" };
             var book2 = new Book { Domains = new List<Domain> { domain1 }, Name = "book2" };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
+            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
 
             var readerWithdrawal = new Withdrawal
             {
@@ -1274,8 +1468,8 @@ namespace TestLibraryManagement.Test
             var withdrawalBook1 = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } }, Name = "withdrawalBook1" };
             var withdrawalBook2 = new Book { Domains = new List<Domain> { new Domain { Name = "Fiction" } }, Name = "withdrawalBook2" };
 
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
+            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
+            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock1 };
 
             var withdrawal = new Withdrawal
             {
@@ -1365,8 +1559,10 @@ namespace TestLibraryManagement.Test
             var book1 = new Book { Domains = new List<Domain> { domain1 }, Name = "book1" };
             var book2 = new Book { Domains = new List<Domain> { domain1 }, Name = "book2" };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
+            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
 
             var readerWithdrawal1 = new Withdrawal
             {
@@ -1400,8 +1596,8 @@ namespace TestLibraryManagement.Test
             var withdrawalBook1 = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } }, Name = "withdrawalBook1" };
             var withdrawalBook2 = new Book { Domains = new List<Domain> { new Domain { Name = "Fiction" } }, Name = "withdrawalBook2" };
 
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
+            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
+            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock1 };
 
             var withdrawal = new Withdrawal
             {
@@ -1504,8 +1700,11 @@ namespace TestLibraryManagement.Test
             var withdrawalBook1 = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } }, Name = "withdrawalBook1" };
             var withdrawalBook2 = new Book { Domains = new List<Domain> { new Domain { Name = "Fiction" } }, Name = "withdrawalBook2" };
 
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+            var stock2 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
+            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock2 };
 
             var withdrawal = new Withdrawal
             {

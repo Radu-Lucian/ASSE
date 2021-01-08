@@ -87,6 +87,12 @@
     <Compile Include="Migrations\202101031735577_PublicationRelationAdded.designer.cs">
       <DependentUpon>202101031735577_PublicationRelationAdded.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202101081028029_AddedPublicationStock.cs">
+      <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
+    </Compile>
+    <Compile Include="Migrations\202101081028029_AddedPublicationStock.designer.cs">
+      <DependentUpon>202101081028029_AddedPublicationStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs">
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
@@ -129,6 +135,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202101031735577_PublicationRelationAdded.resx">
       <DependentUpon>202101031735577_PublicationRelationAdded.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202101081028029_AddedPublicationStock.resx">
+      <DependentUpon>202101081028029_AddedPublicationStock.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

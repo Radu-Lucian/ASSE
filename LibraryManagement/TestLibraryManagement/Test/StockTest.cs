@@ -111,6 +111,60 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestAddInvalidRentedStockLowerBoundary.
+        /// </summary>
+        [Test]
+        public void TestAddInvalidRentedStockLowerBoundary()
+        {
+            var stock = new Stock
+            {
+                RentedStock = -1
+            };
+
+            var results = this.StockService.CreateStock(stock);
+            var tag = results.FirstOrDefault(res => res.Tag == "StockRentedStockInvalid");
+
+            Assert.IsNotNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestAddInvalidRentedStockUpperBoundary.
+        /// </summary>
+        [Test]
+        public void TestAddInvalidRentedStockUpperBoundary()
+        {
+            var stock = new Stock
+            {
+                RentedStock = int.MaxValue
+            };
+
+            var results = this.StockService.CreateStock(stock);
+            var tag = results.FirstOrDefault(res => res.Tag == "StockRentedStockInvalid");
+
+            Assert.IsNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestAddValidRentedStock.
+        /// </summary>
+        [Test]
+        public void TestAddValidRentedStock()
+        {
+            var stock = new Stock
+            {
+                RentedStock = 0
+            };
+
+            var results = this.StockService.CreateStock(stock);
+            var tag = results.FirstOrDefault(res => res.Tag == "StockRentedStockInvalid");
+
+            Assert.IsNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
         /// Defines the test method TestAddInvalidNumberOfBooksForLectureLowerBoundary.
         /// </summary>
         [Test]

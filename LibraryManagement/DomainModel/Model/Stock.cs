@@ -31,6 +31,15 @@ namespace DomainModel.Model
         public int InitialStock { get; set; }
 
         /// <summary>
+        /// Gets or sets the rented stock.
+        /// </summary>
+        /// <value>
+        /// The rented stock.
+        /// </value>
+        [RangeValidator(0, RangeBoundaryType.Inclusive, int.MaxValue, RangeBoundaryType.Ignore, MessageTemplate = "Stock initial stock must be grater than 0", Tag = "StockRentedStockInvalid")]
+        public int RentedStock { get; set; }
+
+        /// <summary>
         /// Gets or sets the number of books for lecture.
         /// </summary>
         /// <value>

@@ -123,6 +123,17 @@ namespace DomainModel.Model
             }
 
             {
+                foreach (var publication in this.Publications)
+                {
+                    if (publication.Stock.InitialStock == publication.Stock.NumberOfBooksForLecture ||
+                        (publication.Stock.InitialStock - publication.Stock.NumberOfBooksForLecture - publication.Stock.RentedStock) < (publication.Stock.InitialStock / 10))
+                    {
+                        validationResults.AddResult(new ValidationResult("Publication has insufficient stock", this, "Withdrawal", "ValidatePublicationStock", null));
+                    }
+                }
+            }
+
+            {
                 var numberOfBooksRentedInPeriod = 0;
                 foreach (var withdrawal in this.Reader.Withdrawals)
                 {
