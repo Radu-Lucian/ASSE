@@ -1369,8 +1369,8 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA),
-                DueDate = DateTime.Today.AddDays(-1),
+                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA + 1),
+                DueDate = DateTime.Today.AddDays(3),
                 Publications = new List<Publication>
                 {
                     readerPublication1,
@@ -1487,8 +1487,8 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA),
-                DueDate = DateTime.Today.AddDays(-1),
+                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA + 1),
+                DueDate = DateTime.Today.AddDays(3),
                 Publications = new List<Publication>
                 {
                     readerPublication1
@@ -1497,8 +1497,8 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal2 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA),
-                DueDate = DateTime.Today.AddDays(-1),
+                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA + 1),
+                DueDate = DateTime.Today.AddDays(3),
                 Publications = new List<Publication>
                 {
                     readerPublication2

@@ -249,7 +249,7 @@ namespace DomainModel.Model
                 {
                     foreach (var publication in withdrawal.Publications)
                     {
-                        if ((withdrawal.DueDate - withdrawal.RentedDate).TotalDays < bookGracePeriod)
+                        if ((DateTime.Today - withdrawal.RentedDate).TotalDays < bookGracePeriod)
                         {
                             booksThatHaveNotPassedTheGracePeriod.Add(publication.Book.Name);
                         }
