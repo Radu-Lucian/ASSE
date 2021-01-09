@@ -11,6 +11,7 @@ namespace TestLibraryManagement.Test
     using DataMapper.Repository;
     using DataMapper.Repository.DataBaseContext;
     using DomainModel.Model;
+    using DomainModel.Options;
     using Moq;
     using NUnit.Framework;
     using ServiceLayer.Service;
@@ -354,17 +355,10 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddInvalidPublicationsC()
         {
+            var publications = Enumerable.Range(0, ApplicationOptions.Options.C + 1).Select(i => new Publication { NumberOfPages = i }).ToList();
             var withdrawal = new Withdrawal
             {
-                Publications = new List<Publication>()
-                {
-                    new Publication { NumberOfPages = 5 },
-                    new Publication { NumberOfPages = 7 },
-                    new Publication { NumberOfPages = 7 },
-                    new Publication { NumberOfPages = 9 },
-                    new Publication { NumberOfPages = 87 },
-                    new Publication { NumberOfPages = 688 }
-                }
+                Publications = new List<Publication>(publications)
             };
 
             var results = this.WithdrawalService.Create(withdrawal);
@@ -380,13 +374,10 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddValidPublicationsC()
         {
+            var publications = Enumerable.Range(0, ApplicationOptions.Options.C - 1).Select(i => new Publication { NumberOfPages = i }).ToList();
             var withdrawal = new Withdrawal
             {
-                Publications = new List<Publication>()
-                {
-                    new Publication { NumberOfPages = 5 },
-                    new Publication { NumberOfPages = 7 }
-                }
+                Publications = new List<Publication>(publications)
             };
 
             var results = this.WithdrawalService.Create(withdrawal);
@@ -679,25 +670,12 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddInvalidExtensionsCount()
         {
-            var extension1 = new Extension { CreationDate = DateTime.Today.AddDays(-6) };
-            var extension2 = new Extension { CreationDate = DateTime.Today.AddDays(-5) };
-            var extension3 = new Extension { CreationDate = DateTime.Today.AddDays(-4) };
-            var extension4 = new Extension { CreationDate = DateTime.Today.AddDays(-3) };
-            var extension5 = new Extension { CreationDate = DateTime.Today.AddDays(-2) };
-            var extension6 = new Extension { CreationDate = DateTime.Today.AddDays(-1) };
+            var extensions = Enumerable.Range(0, ApplicationOptions.Options.LIM + 1).Select(i => new Extension { CreationDate = DateTime.Today.AddDays(-i - 1) }).ToList();
 
             var withdrawal = new Withdrawal
             {
                 Publications = new List<Publication>(),
-                Extensions = new List<Extension>
-                {
-                    extension1,
-                    extension2,
-                    extension3,
-                    extension4,
-                    extension5,
-                    extension6
-                }
+                Extensions = new List<Extension>(extensions)
             };
 
             var results = this.WithdrawalService.Create(withdrawal);
@@ -713,21 +691,12 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddValidExtensionsCount()
         {
-            var extension1 = new Extension { CreationDate = DateTime.Today.AddDays(-6) };
-            var extension2 = new Extension { CreationDate = DateTime.Today.AddDays(-5) };
-            var extension3 = new Extension { CreationDate = DateTime.Today.AddDays(-4) };
-            var extension4 = new Extension { CreationDate = DateTime.Today.AddDays(-3) };
+            var extensions = Enumerable.Range(0, ApplicationOptions.Options.LIM - 1).Select(i => new Extension { CreationDate = DateTime.Today.AddDays(-i - 1) }).ToList();
 
             var withdrawal = new Withdrawal
             {
                 Publications = new List<Publication>(),
-                Extensions = new List<Extension>
-                {
-                    extension1,
-                    extension2,
-                    extension3,
-                    extension4
-                }
+                Extensions = new List<Extension>(extensions)
             };
 
             var results = this.WithdrawalService.Create(withdrawal);
@@ -745,20 +714,13 @@ namespace TestLibraryManagement.Test
         {
             var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Stock = stock1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Stock = stock1 };
-            var readerPublication3 = new Publication { NumberOfPages = 5, Stock = stock1 };
+            var readerPublications = Enumerable.Range(0, ApplicationOptions.Options.NMC).Select(i => new Publication { NumberOfPages = i, Stock = stock1 }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-30),
-                DueDate = DateTime.Today.AddDays(-10),
-                Publications = new List<Publication>
-                {
-                    readerPublication1,
-                    readerPublication2,
-                    readerPublication3
-                }
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER + ApplicationOptions.Options.PER)),
+                DueDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER - 1)),
+                Publications = new List<Publication>(readerPublications)
             };
 
             var reader = new Reader
@@ -777,7 +739,7 @@ namespace TestLibraryManagement.Test
             };
 
             var results = this.WithdrawalService.Create(withdrawal);
-            var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsBook");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
@@ -789,18 +751,13 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddValidNumberOfRentedBooksWithinPeriodOneWithdrawal()
         {
-            var readerPublication1 = new Publication { NumberOfPages = 5 };
-            var readerPublication2 = new Publication { NumberOfPages = 5 };
+            var readerPublications = Enumerable.Range(0, ApplicationOptions.Options.NMC - 1).Select(i => new Publication { NumberOfPages = i }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-30),
-                DueDate = DateTime.Today.AddDays(-10),
-                Publications = new List<Publication>
-                {
-                    readerPublication1,
-                    readerPublication2
-                }
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER + ApplicationOptions.Options.PER)),
+                DueDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER - 1)),
+                Publications = new List<Publication>(readerPublications)
             };
 
             var reader = new Reader
@@ -819,7 +776,7 @@ namespace TestLibraryManagement.Test
             };
 
             var results = this.WithdrawalService.Create(withdrawal);
-            var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsBook");
 
             Assert.IsNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
@@ -833,29 +790,21 @@ namespace TestLibraryManagement.Test
         {
             var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Stock = stock1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Stock = stock1 };
-            var readerPublication3 = new Publication { NumberOfPages = 5, Stock = stock1 };
+            var readerPublications1 = Enumerable.Range(0, ApplicationOptions.Options.NMC / 2).Select(i => new Publication { NumberOfPages = i }).ToList();
+            var readerPublications2 = Enumerable.Range(ApplicationOptions.Options.NMC / 2, ApplicationOptions.Options.NMC - 1).Select(i => new Publication { NumberOfPages = i }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-70),
-                DueDate = DateTime.Today.AddDays(-40),
-                Publications = new List<Publication>
-                {
-                    readerPublication1,
-                }
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER + ApplicationOptions.Options.PER)),
+                DueDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER - 1)),
+                Publications = new List<Publication>(readerPublications1)
             };
 
             var readerWithdrawal2 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-30),
-                DueDate = DateTime.Today.AddDays(-10),
-                Publications = new List<Publication>
-                {
-                    readerPublication2,
-                    readerPublication3
-                }
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER + ApplicationOptions.Options.PER)),
+                DueDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER - 1)),
+                Publications = new List<Publication>(readerPublications2)
             };
 
             var reader = new Reader
@@ -875,7 +824,7 @@ namespace TestLibraryManagement.Test
             };
 
             var results = this.WithdrawalService.Create(withdrawal);
-            var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsBook");
 
             Assert.IsNotNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
@@ -887,27 +836,21 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddValidNumberOfRentedBooksWithinPeriodMultipleWithdrawals()
         {
-            var readerPublication1 = new Publication { NumberOfPages = 5 };
-            var readerPublication2 = new Publication { NumberOfPages = 5 };
+            var readerPublications1 = Enumerable.Range(0, ApplicationOptions.Options.NMC / 2).Select(i => new Publication { NumberOfPages = i }).ToList();
+            var readerPublications2 = Enumerable.Range(ApplicationOptions.Options.NMC / 2, ApplicationOptions.Options.NMC - 2).Select(i => new Publication { NumberOfPages = i }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-70),
-                DueDate = DateTime.Today.AddDays(-40),
-                Publications = new List<Publication>
-                {
-                    readerPublication1
-                }
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER + ApplicationOptions.Options.PER)),
+                DueDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER - 1)),
+                Publications = new List<Publication>(readerPublications1)
             };
 
             var readerWithdrawal2 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-30),
-                DueDate = DateTime.Today.AddDays(-10),
-                Publications = new List<Publication>
-                {
-                    readerPublication2
-                }
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER + ApplicationOptions.Options.PER)),
+                DueDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.PER - 1)),
+                Publications = new List<Publication>(readerPublications2)
             };
 
             var reader = new Reader
@@ -926,7 +869,7 @@ namespace TestLibraryManagement.Test
             };
 
             var results = this.WithdrawalService.Create(withdrawal);
-            var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsBook");
 
             Assert.IsNull(tag);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
@@ -940,23 +883,20 @@ namespace TestLibraryManagement.Test
         {
             var domain1 = new Domain { Name = "Science" };
 
-            var book1 = new Book { Domains = new List<Domain> { domain1 } };
-            var book2 = new Book { Domains = new List<Domain> { domain1 } };
-
             var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
+            var publications = Enumerable.Range(0, ApplicationOptions.Options.D).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-70),
-                DueDate = DateTime.Today.AddDays(-40),
-                Publications = new List<Publication>
-                {
-                    readerPublication1,
-                    readerPublication2
-                }
+                RentedDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 2)),
+                DueDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.L + 1)),
+                Publications = new List<Publication>(publications)
             };
 
             var reader = new Reader
@@ -997,18 +937,17 @@ namespace TestLibraryManagement.Test
             var book1 = new Book { Domains = new List<Domain> { domain1 } };
             var book2 = new Book { Domains = new List<Domain> { domain1 } };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var publications = Enumerable.Range(0, ApplicationOptions.Options.D - 1).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+            }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-70),
-                DueDate = DateTime.Today.AddDays(-40),
-                Publications = new List<Publication>
-                {
-                    readerPublication1,
-                    readerPublication2
-                }
+                RentedDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 2)),
+                DueDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.L + 1)),
+                Publications = new List<Publication>(publications)
             };
 
             var reader = new Reader
@@ -1049,27 +988,30 @@ namespace TestLibraryManagement.Test
 
             var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
+            var publications1 = Enumerable.Range(0, ApplicationOptions.Options.D / 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+            }).ToList();
+
+            var publications2 = Enumerable.Range(ApplicationOptions.Options.D / 2, ApplicationOptions.Options.D).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+            }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-70),
-                DueDate = DateTime.Today.AddDays(-40),
-                Publications = new List<Publication>
-                {
-                    readerPublication1
-                }
+                RentedDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 2)),
+                DueDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 1)),
+                Publications = new List<Publication>(publications1)
             };
 
             var readerWithdrawal2 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-70),
-                DueDate = DateTime.Today.AddDays(-40),
-                Publications = new List<Publication>
-                {
-                    readerPublication2
-                }
+                RentedDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 2)),
+                DueDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 1)),
+                Publications = new List<Publication>(publications2)
             };
 
             var reader = new Reader
@@ -1111,27 +1053,34 @@ namespace TestLibraryManagement.Test
             var book1 = new Book { Domains = new List<Domain> { domain1 } };
             var book2 = new Book { Domains = new List<Domain> { domain1 } };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
+
+            var publications1 = Enumerable.Range(0, ApplicationOptions.Options.D / 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
+
+            var publications2 = Enumerable.Range(ApplicationOptions.Options.D / 2, ApplicationOptions.Options.D - 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-70),
-                DueDate = DateTime.Today.AddDays(-40),
-                Publications = new List<Publication>
-                {
-                    readerPublication1
-                }
+                RentedDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 2)),
+                DueDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 1)),
+                Publications = new List<Publication>(publications1)
             };
 
             var readerWithdrawal2 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddDays(-70),
-                DueDate = DateTime.Today.AddDays(-40),
-                Publications = new List<Publication>
-                {
-                    readerPublication2
-                }
+                RentedDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 2)),
+                DueDate = DateTime.Today.AddMonths(-(ApplicationOptions.Options.L + 1)),
+                Publications = new List<Publication>(publications2)
             };
 
             var reader = new Reader
@@ -1144,7 +1093,7 @@ namespace TestLibraryManagement.Test
             };
 
             var withdrawalBook = new Book { Domains = new List<Domain> { domain1 } };
-            var withdrawalPublication = new Publication { NumberOfPages = 10, Book = withdrawalBook };
+            var withdrawalPublication = new Publication { NumberOfPages = 10, Book = withdrawalBook, Stock = stock1 };
 
             var withdrawal = new Withdrawal
             {
@@ -1168,23 +1117,20 @@ namespace TestLibraryManagement.Test
         {
             var domain1 = new Domain { Name = "Science" };
 
-            var book1 = new Book { Domains = new List<Domain> { domain1 } };
-            var book2 = new Book { Domains = new List<Domain> { domain1 } };
-
             var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
+            var publications = Enumerable.Range(0, ApplicationOptions.Options.NCZ - 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
 
             var readerWithdrawal = new Withdrawal
             {
                 RentedDate = DateTime.Today,
                 DueDate = DateTime.Today.AddDays(5),
-                Publications = new List<Publication>
-                {
-                    readerPublication1,
-                    readerPublication2
-                }
+                Publications = new List<Publication>(publications)
             };
 
             var reader = new Reader
@@ -1195,25 +1141,16 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var withdrawalBook1 = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } } };
-            var withdrawalBook2 = new Book { Domains = new List<Domain> { new Domain { Name = "Fiction" } } };
-            var withdrawalBook3 = new Book { Domains = new List<Domain> { new Domain { Name = "Science" } } };
-            var withdrawalBook4 = new Book { Domains = new List<Domain> { new Domain { Name = "Philosophy" } } };
-
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock1 };
-            var withdrawalPublication3 = new Publication { NumberOfPages = 10, Book = withdrawalBook3, Stock = stock1 };
-            var withdrawalPublication4 = new Publication { NumberOfPages = 10, Book = withdrawalBook4, Stock = stock1 };
+            var withdrawalPublications = Enumerable.Range(ApplicationOptions.Options.NCZ - 2, ApplicationOptions.Options.NCZ).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { new Domain { Name = "Domain" + i } } },
+                Stock = stock1
+            }).ToList();
 
             var withdrawal = new Withdrawal
             {
-                Publications = new List<Publication>
-                {
-                    withdrawalPublication1,
-                    withdrawalPublication2,
-                    withdrawalPublication3,
-                    withdrawalPublication4
-                },
+                Publications = new List<Publication>(withdrawalPublications),
                 Extensions = new List<Extension>(),
                 Reader = reader
             };
@@ -1233,21 +1170,20 @@ namespace TestLibraryManagement.Test
         {
             var domain1 = new Domain { Name = "Science" };
 
-            var book1 = new Book { Domains = new List<Domain> { domain1 } };
-            var book2 = new Book { Domains = new List<Domain> { domain1 } };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var publications = Enumerable.Range(0, ApplicationOptions.Options.NCZ - 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
 
             var readerWithdrawal = new Withdrawal
             {
                 RentedDate = DateTime.Today,
                 DueDate = DateTime.Today.AddDays(5),
-                Publications = new List<Publication>
-                {
-                    readerPublication1,
-                    readerPublication2
-                }
+                Publications = new List<Publication>(publications)
             };
 
             var reader = new Reader
@@ -1258,21 +1194,15 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var withdrawalBook1 = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } } };
-            var withdrawalBook2 = new Book { Domains = new List<Domain> { new Domain { Name = "Fiction" } } };
-            var withdrawalBook3 = new Book { Domains = new List<Domain> { new Domain { Name = "Science" } } };
+            var withdrawalBook = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } } };
 
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
-            var withdrawalPublication3 = new Publication { NumberOfPages = 10, Book = withdrawalBook3 };
+            var withdrawalPublication = new Publication { NumberOfPages = 10, Book = withdrawalBook };
 
             var withdrawal = new Withdrawal
             {
                 Publications = new List<Publication>
                 {
-                    withdrawalPublication1,
-                    withdrawalPublication2,
-                    withdrawalPublication3
+                    withdrawalPublication
                 },
                 Extensions = new List<Extension>(),
                 Reader = reader
@@ -1293,32 +1223,34 @@ namespace TestLibraryManagement.Test
         {
             var domain1 = new Domain { Name = "Science" };
 
-            var book1 = new Book { Domains = new List<Domain> { domain1 } };
-            var book2 = new Book { Domains = new List<Domain> { domain1 } };
-
             var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1, Stock = stock1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2, Stock = stock1 };
+            var publications1 = Enumerable.Range(0, ApplicationOptions.Options.NCZ / 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
+
+            var publications2 = Enumerable.Range(ApplicationOptions.Options.NCZ / 2, ApplicationOptions.Options.NCZ - 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
                 RentedDate = DateTime.Today,
                 DueDate = DateTime.Today.AddDays(5),
-                Publications = new List<Publication>
-                {
-                    readerPublication1
-                }
+                Publications = new List<Publication>(publications1)
             };
 
             var readerWithdrawal2 = new Withdrawal
             {
                 RentedDate = DateTime.Today,
                 DueDate = DateTime.Today.AddDays(5),
-                Publications = new List<Publication>
-                {
-                    readerPublication2
-                }
+                Publications = new List<Publication>(publications2)
             };
 
             var reader = new Reader
@@ -1330,25 +1262,16 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var withdrawalBook1 = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } } };
-            var withdrawalBook2 = new Book { Domains = new List<Domain> { new Domain { Name = "Fiction" } } };
-            var withdrawalBook3 = new Book { Domains = new List<Domain> { new Domain { Name = "Science" } } };
-            var withdrawalBook4 = new Book { Domains = new List<Domain> { new Domain { Name = "Philosophy" } } };
-
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1, Stock = stock1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2, Stock = stock1 };
-            var withdrawalPublication3 = new Publication { NumberOfPages = 10, Book = withdrawalBook3, Stock = stock1 };
-            var withdrawalPublication4 = new Publication { NumberOfPages = 10, Book = withdrawalBook4, Stock = stock1 };
+            var withdrawalPublications = Enumerable.Range(ApplicationOptions.Options.NCZ - 2, ApplicationOptions.Options.NCZ).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { new Domain { Name = "Domain" + i } } },
+                Stock = stock1
+            }).ToList();
 
             var withdrawal = new Withdrawal
             {
-                Publications = new List<Publication>
-                {
-                    withdrawalPublication1,
-                    withdrawalPublication2,
-                    withdrawalPublication3,
-                    withdrawalPublication4
-                },
+                Publications = new List<Publication>(withdrawalPublications),
                 Extensions = new List<Extension>(),
                 Reader = reader
             };
@@ -1368,30 +1291,34 @@ namespace TestLibraryManagement.Test
         {
             var domain1 = new Domain { Name = "Science" };
 
-            var book1 = new Book { Domains = new List<Domain> { domain1 } };
-            var book2 = new Book { Domains = new List<Domain> { domain1 } };
+            var stock1 = new Stock { InitialStock = 50, RentedStock = 0, NumberOfBooksForLecture = 10 };
 
-            var readerPublication1 = new Publication { NumberOfPages = 5, Book = book1 };
-            var readerPublication2 = new Publication { NumberOfPages = 5, Book = book2 };
+            var publications1 = Enumerable.Range(0, ApplicationOptions.Options.NCZ / 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
+
+            var publications2 = Enumerable.Range(ApplicationOptions.Options.NCZ / 2, ApplicationOptions.Options.NCZ - 2).Select(i => new Publication
+            {
+                NumberOfPages = i,
+                Book = new Book { Domains = new List<Domain> { domain1 } },
+                Stock = stock1
+            }).ToList();
 
             var readerWithdrawal1 = new Withdrawal
             {
                 RentedDate = DateTime.Today,
                 DueDate = DateTime.Today.AddDays(5),
-                Publications = new List<Publication>
-                {
-                    readerPublication1
-                }
+                Publications = new List<Publication>(publications1)
             };
 
             var readerWithdrawal2 = new Withdrawal
             {
                 RentedDate = DateTime.Today,
                 DueDate = DateTime.Today.AddDays(5),
-                Publications = new List<Publication>
-                {
-                    readerPublication2
-                }
+                Publications = new List<Publication>(publications2)
             };
 
             var reader = new Reader
@@ -1403,21 +1330,15 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var withdrawalBook1 = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } } };
-            var withdrawalBook2 = new Book { Domains = new List<Domain> { new Domain { Name = "Fiction" } } };
-            var withdrawalBook3 = new Book { Domains = new List<Domain> { new Domain { Name = "Science" } } };
+            var withdrawalBook = new Book { Domains = new List<Domain> { new Domain { Name = "Art" } } };
 
-            var withdrawalPublication1 = new Publication { NumberOfPages = 10, Book = withdrawalBook1 };
-            var withdrawalPublication2 = new Publication { NumberOfPages = 10, Book = withdrawalBook2 };
-            var withdrawalPublication3 = new Publication { NumberOfPages = 10, Book = withdrawalBook3 };
+            var withdrawalPublication = new Publication { NumberOfPages = 10, Book = withdrawalBook };
 
             var withdrawal = new Withdrawal
             {
                 Publications = new List<Publication>
                 {
-                    withdrawalPublication1,
-                    withdrawalPublication2,
-                    withdrawalPublication3
+                    withdrawalPublication
                 },
                 Extensions = new List<Extension>(),
                 Reader = reader
@@ -1448,8 +1369,8 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal = new Withdrawal
             {
-                RentedDate = DateTime.Today,
-                DueDate = DateTime.Today.AddDays(5),
+                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA),
+                DueDate = DateTime.Today.AddDays(-1),
                 Publications = new List<Publication>
                 {
                     readerPublication1,
@@ -1506,7 +1427,7 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddMonths(-2),
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.DELTA * 3)),
                 DueDate = DateTime.Today.AddDays(-15),
                 Publications = new List<Publication>
                 {
@@ -1566,8 +1487,8 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today,
-                DueDate = DateTime.Today.AddDays(5),
+                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA),
+                DueDate = DateTime.Today.AddDays(-1),
                 Publications = new List<Publication>
                 {
                     readerPublication1
@@ -1576,8 +1497,8 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal2 = new Withdrawal
             {
-                RentedDate = DateTime.Today,
-                DueDate = DateTime.Today.AddDays(5),
+                RentedDate = DateTime.Today.AddDays(-ApplicationOptions.Options.DELTA),
+                DueDate = DateTime.Today.AddDays(-1),
                 Publications = new List<Publication>
                 {
                     readerPublication2
@@ -1634,8 +1555,8 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal1 = new Withdrawal
             {
-                RentedDate = DateTime.Today,
-                DueDate = DateTime.Today.AddDays(5),
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.DELTA * 3)),
+                DueDate = DateTime.Today.AddDays(-15),
                 Publications = new List<Publication>
                 {
                     readerPublication1
@@ -1644,7 +1565,7 @@ namespace TestLibraryManagement.Test
 
             var readerWithdrawal2 = new Withdrawal
             {
-                RentedDate = DateTime.Today.AddMonths(-2),
+                RentedDate = DateTime.Today.AddDays(-(ApplicationOptions.Options.DELTA * 2)),
                 DueDate = DateTime.Today.AddDays(-15),
                 Publications = new List<Publication>
                 {
@@ -1687,12 +1608,32 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestAddLibrarianValidPublicationsC.
+        /// </summary>
+        [Test]
+        public void TestAddLibrarianValidPublicationsC()
+        {
+            var publications = Enumerable.Range(0, ApplicationOptions.Options.C + 1).Select(i => new Publication { NumberOfPages = i }).ToList();
+            var withdrawal = new Withdrawal
+            {
+                Publications = new List<Publication>(publications),
+                Reader = new Librarian()
+            };
+
+            var results = this.WithdrawalService.Create(withdrawal);
+            var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsC");
+
+            Assert.IsNull(tag);
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
         /// Defines the test method TestAddValidWithdrawal.
         /// </summary>
         [Test]
         public void TestAddValidWithdrawal()
         {
-            var reader = new Reader
+            var reader = new Reader()
             {
                 Withdrawals = new List<Withdrawal>()
             };

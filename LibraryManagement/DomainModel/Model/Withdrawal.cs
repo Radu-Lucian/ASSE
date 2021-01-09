@@ -164,7 +164,7 @@ namespace DomainModel.Model
 
                 if (numberOfBooksRentedInPeriod + this.Publications.Count > maxBooksPerInterval)
                 {
-                    validationResults.AddResult(new ValidationResult($"Number of rented books within the period {rentedBookPeriod} cannot be grater than {maxBooksPerInterval}", this, "Withdrawal", "ValidateExtentions", null));
+                    validationResults.AddResult(new ValidationResult($"Number of rented books within the period {rentedBookPeriod} cannot be grater than {maxBooksPerInterval}", this, "Withdrawal", "ValidatePublicationsBook", null));
                 }
             }
 

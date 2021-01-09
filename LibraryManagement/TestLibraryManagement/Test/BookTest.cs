@@ -11,6 +11,7 @@ namespace TestLibraryManagement.Test
     using DataMapper.Repository;
     using DataMapper.Repository.DataBaseContext;
     using DomainModel.Model;
+    using DomainModel.Options;
     using Moq;
     using NUnit.Framework;
     using ServiceLayer.Service;
@@ -173,10 +174,11 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddMoreDomainsDomainsThanDOM()
         {
+            var domains = Enumerable.Range(0, ApplicationOptions.Options.DOM + 1).Select(i => new Domain { Name = "Domain" + i }).ToList();
             var book = new Book
             {
                 Name = "Origin",
-                Domains = new List<Domain> { new Domain { Name = "Informatics" }, new Domain { Name = "Mathematics" }, new Domain { Name = "Psychology" } }
+                Domains = new List<Domain>(domains)
             };
 
             var results = this.BookService.Create(book);
@@ -192,10 +194,11 @@ namespace TestLibraryManagement.Test
         [Test]
         public void TestAddLessDomainsDomainsThanDOM()
         {
+            var domains = Enumerable.Range(0, ApplicationOptions.Options.DOM - 1).Select(i => new Domain { Name = "Domain" + i }).ToList();
             var book = new Book
             {
                 Name = "Origin",
-                Domains = new List<Domain> { new Domain { Name = "Informatics" }, new Domain { Name = "Mathematics" } }
+                Domains = new List<Domain>(domains)
             };
 
             var results = this.BookService.Create(book);
