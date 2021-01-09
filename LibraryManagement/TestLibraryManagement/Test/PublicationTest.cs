@@ -53,7 +53,7 @@ namespace TestLibraryManagement.Test
         {
             Publication nullPublication = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.PublicationService.CreatePublication(nullPublication));
+            Assert.Throws<ArgumentNullException>(() => this.PublicationService.Create(nullPublication));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -68,7 +68,7 @@ namespace TestLibraryManagement.Test
                 CoverType = Cover.Invalid
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationCoverTypeInvalid");
 
             Assert.IsNotNull(tag);
@@ -88,7 +88,7 @@ namespace TestLibraryManagement.Test
                 CoverType = validCoverType
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationCoverTypeInvalid");
 
             Assert.IsNull(tag);
@@ -106,7 +106,7 @@ namespace TestLibraryManagement.Test
                 NumberOfPages = -1
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationNumberOfPagesInvalid");
 
             Assert.IsNotNull(tag);
@@ -124,7 +124,7 @@ namespace TestLibraryManagement.Test
                 NumberOfPages = int.MaxValue
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationNumberOfPagesInvalid");
 
             Assert.IsNull(tag);
@@ -142,7 +142,7 @@ namespace TestLibraryManagement.Test
                 NumberOfPages = 594
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationNumberOfPagesInvalid");
 
             Assert.IsNull(tag);
@@ -160,7 +160,7 @@ namespace TestLibraryManagement.Test
                 PublicationDate = DateTime.Today.AddDays(1)
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateDateTime");
 
             Assert.IsNotNull(tag);
@@ -178,7 +178,7 @@ namespace TestLibraryManagement.Test
                 PublicationDate = DateTime.Today.AddDays(-1)
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateDateTime");
 
             Assert.IsNull(tag);
@@ -196,7 +196,7 @@ namespace TestLibraryManagement.Test
                 Book = null
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationBookNull");
 
             Assert.IsNotNull(tag);
@@ -214,7 +214,7 @@ namespace TestLibraryManagement.Test
                 Book = new Book() { Name = "Origin" }
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationBookNull");
 
             Assert.IsNull(tag);
@@ -232,7 +232,7 @@ namespace TestLibraryManagement.Test
                 Stock = null
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationStockNull");
 
             Assert.IsNotNull(tag);
@@ -250,7 +250,7 @@ namespace TestLibraryManagement.Test
                 Stock = new Stock() { InitialStock = 5 }
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationStockNull");
 
             Assert.IsNull(tag);
@@ -268,7 +268,7 @@ namespace TestLibraryManagement.Test
                 PublishingCompany = null
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationPublishingCompanyNull");
 
             Assert.IsNotNull(tag);
@@ -286,7 +286,7 @@ namespace TestLibraryManagement.Test
                 PublishingCompany = new PublishingCompany() { Name = "RAO" }
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationPublishingCompanyNull");
 
             Assert.IsNull(tag);
@@ -304,7 +304,7 @@ namespace TestLibraryManagement.Test
                 BookWithdrawals = null
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationBookWithdrawalsNull");
 
             Assert.IsNotNull(tag);
@@ -322,7 +322,7 @@ namespace TestLibraryManagement.Test
                 BookWithdrawals = new List<Withdrawal>()
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationBookWithdrawalsNull");
 
             Assert.IsNull(tag);
@@ -340,7 +340,7 @@ namespace TestLibraryManagement.Test
                 BookWithdrawals = new List<Withdrawal> { new Withdrawal() }
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
             var tag = results.FirstOrDefault(res => res.Tag == "PublicationBookWithdrawalsNull");
 
             Assert.IsNull(tag);
@@ -364,7 +364,7 @@ namespace TestLibraryManagement.Test
                 BookWithdrawals = new List<Withdrawal>()
             };
 
-            var results = this.PublicationService.CreatePublication(publication);
+            var results = this.PublicationService.Create(publication);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());

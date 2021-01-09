@@ -53,7 +53,7 @@ namespace TestLibraryManagement.Test
         {
             Domain nulldomain = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.DomainService.CreateDomain(nulldomain));
+            Assert.Throws<ArgumentNullException>(() => this.DomainService.Create(nulldomain));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -68,7 +68,7 @@ namespace TestLibraryManagement.Test
                 Name = null
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainNameNull");
 
             Assert.IsNotNull(tag);
@@ -86,7 +86,7 @@ namespace TestLibraryManagement.Test
                 Name = string.Empty
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainNameLength");
 
             Assert.IsNotNull(tag);
@@ -104,7 +104,7 @@ namespace TestLibraryManagement.Test
                 Name = new string('a', 210)
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainNameLength");
 
             Assert.IsNotNull(tag);
@@ -122,7 +122,7 @@ namespace TestLibraryManagement.Test
                 Name = "Informatics"
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainNameLength");
 
             Assert.IsNull(tag);
@@ -140,7 +140,7 @@ namespace TestLibraryManagement.Test
                 Parent = null
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainParentNull");
 
             Assert.IsNull(tag);
@@ -158,7 +158,7 @@ namespace TestLibraryManagement.Test
                 Parent = new Domain { Name = "Science" }
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainParentNull");
 
             Assert.IsNull(tag);
@@ -176,7 +176,7 @@ namespace TestLibraryManagement.Test
                 Books = null
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainBooksNull");
 
             Assert.IsNotNull(tag);
@@ -194,7 +194,7 @@ namespace TestLibraryManagement.Test
                 Books = new List<Book>()
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainBooksNull");
 
             Assert.IsNull(tag);
@@ -212,7 +212,7 @@ namespace TestLibraryManagement.Test
                 Books = new List<Book> { new Book { Name = "Origin" } }
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
             var tag = results.FirstOrDefault(res => res.Tag == "DomainBooksNull");
 
             Assert.IsNull(tag);
@@ -231,7 +231,7 @@ namespace TestLibraryManagement.Test
                 Books = new List<Book>()
             };
 
-            var results = this.DomainService.CreateDomain(domain);
+            var results = this.DomainService.Create(domain);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());

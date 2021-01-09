@@ -53,7 +53,7 @@ namespace TestLibraryManagement.Test
         {
             Author nullAuthor = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.AuthorService.CreateAuthor(nullAuthor));
+            Assert.Throws<ArgumentNullException>(() => this.AuthorService.Create(nullAuthor));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -68,7 +68,7 @@ namespace TestLibraryManagement.Test
                 FirstName = null
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorFirstNameNull");
 
             Assert.IsNotNull(tag);
@@ -86,7 +86,7 @@ namespace TestLibraryManagement.Test
                 FirstName = string.Empty
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorFirstNameLength");
 
             Assert.IsNotNull(tag);
@@ -104,7 +104,7 @@ namespace TestLibraryManagement.Test
                 FirstName = new string('a', 210)
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorFirstNameLength");
 
             Assert.IsNotNull(tag);
@@ -122,7 +122,7 @@ namespace TestLibraryManagement.Test
                 FirstName = "Lucian"
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorFirstNameLength");
 
             Assert.IsNull(tag);
@@ -140,7 +140,7 @@ namespace TestLibraryManagement.Test
                 LastName = null
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorLastNameNull");
 
             Assert.IsNotNull(tag);
@@ -158,7 +158,7 @@ namespace TestLibraryManagement.Test
                 LastName = string.Empty
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorLastNameLength");
 
             Assert.IsNotNull(tag);
@@ -176,7 +176,7 @@ namespace TestLibraryManagement.Test
                 LastName = new string('a', 210)
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorLastNameLength");
 
             Assert.IsNotNull(tag);
@@ -194,7 +194,7 @@ namespace TestLibraryManagement.Test
                 LastName = "Radu"
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorLastNameLength");
 
             Assert.IsNull(tag);
@@ -212,7 +212,7 @@ namespace TestLibraryManagement.Test
                 Books = null
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorBooksNull");
 
             Assert.IsNotNull(tag);
@@ -230,7 +230,7 @@ namespace TestLibraryManagement.Test
                 Books = new List<Book>()
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorBooksNull");
 
             Assert.IsNull(tag);
@@ -248,7 +248,7 @@ namespace TestLibraryManagement.Test
                 Books = new List<Book> { new Book { Name = "Origin" } }
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
             var tag = results.FirstOrDefault(res => res.Tag == "AuthorBooksNull");
 
             Assert.IsNull(tag);
@@ -268,7 +268,7 @@ namespace TestLibraryManagement.Test
                 Books = new List<Book> { new Book { Name = "Origin" } }
             };
 
-            var results = this.AuthorService.CreateAuthor(author);
+            var results = this.AuthorService.Create(author);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());

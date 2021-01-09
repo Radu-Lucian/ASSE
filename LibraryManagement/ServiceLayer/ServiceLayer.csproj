@@ -54,6 +54,7 @@
       <ExcludeFromStyleCop>True</ExcludeFromStyleCop>
     </Compile>
     <Compile Include="Service\AuthorService.cs" />
+    <Compile Include="Service\Base\BaseService.cs" />
     <Compile Include="Service\BookService.cs" />
     <Compile Include="Service\DomainService.cs" />
     <Compile Include="Service\ExtensionService.cs" />

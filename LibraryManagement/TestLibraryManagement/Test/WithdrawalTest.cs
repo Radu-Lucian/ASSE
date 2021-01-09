@@ -53,7 +53,7 @@ namespace TestLibraryManagement.Test
         {
             Withdrawal nullWithdrawal = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.WithdrawalService.CreateWithdrawal(nullWithdrawal));
+            Assert.Throws<ArgumentNullException>(() => this.WithdrawalService.Create(nullWithdrawal));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -68,7 +68,7 @@ namespace TestLibraryManagement.Test
                 RentedDate = new DateTime(2009, 12, 31)
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalRentedDate");
 
             Assert.IsNotNull(tag);
@@ -86,7 +86,7 @@ namespace TestLibraryManagement.Test
                 RentedDate = new DateTime(2100, 01, 02)
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalRentedDate");
 
             Assert.IsNotNull(tag);
@@ -104,7 +104,7 @@ namespace TestLibraryManagement.Test
                 RentedDate = new DateTime(2020, 01, 06)
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalRentedDate");
 
             Assert.IsNull(tag);
@@ -122,7 +122,7 @@ namespace TestLibraryManagement.Test
                 DueDate = new DateTime(2009, 12, 31)
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalDueDate");
 
             Assert.IsNotNull(tag);
@@ -140,7 +140,7 @@ namespace TestLibraryManagement.Test
                 DueDate = new DateTime(2100, 01, 02)
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalDueDate");
 
             Assert.IsNotNull(tag);
@@ -158,7 +158,7 @@ namespace TestLibraryManagement.Test
                 DueDate = new DateTime(2020, 01, 06)
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalDueDate");
 
             Assert.IsNull(tag);
@@ -178,7 +178,7 @@ namespace TestLibraryManagement.Test
                 Publications = new List<Publication>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsDate");
 
             Assert.IsNotNull(tag);
@@ -197,7 +197,7 @@ namespace TestLibraryManagement.Test
                 DueDate = new DateTime(2020, 01, 10)
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsDate");
 
             Assert.IsNull(tag);
@@ -215,7 +215,7 @@ namespace TestLibraryManagement.Test
                 Extensions = null
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalExtensionsNull");
 
             Assert.IsNotNull(tag);
@@ -233,7 +233,7 @@ namespace TestLibraryManagement.Test
                 Extensions = new List<Extension>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalExtensionsNull");
 
             Assert.IsNull(tag);
@@ -251,7 +251,7 @@ namespace TestLibraryManagement.Test
                 Extensions = new List<Extension>() { new Extension { ExtraDays = 5 } }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalExtensionsNull");
 
             Assert.IsNull(tag);
@@ -269,7 +269,7 @@ namespace TestLibraryManagement.Test
                 Publications = null
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalPublicationsNull");
 
             Assert.IsNotNull(tag);
@@ -287,7 +287,7 @@ namespace TestLibraryManagement.Test
                 Publications = new List<Publication>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublications");
 
             Assert.IsNotNull(tag);
@@ -305,7 +305,7 @@ namespace TestLibraryManagement.Test
                 Publications = new List<Publication>() { new Publication { NumberOfPages = 5 } }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalPublicationsNull");
 
             Assert.IsNull(tag);
@@ -323,7 +323,7 @@ namespace TestLibraryManagement.Test
                 Reader = null
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalReaderNull");
 
             Assert.IsNotNull(tag);
@@ -341,7 +341,7 @@ namespace TestLibraryManagement.Test
                 Reader = new Reader { FirstName = "Luci" }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "WithdrawalReaderNull");
 
             Assert.IsNull(tag);
@@ -367,7 +367,7 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsC");
 
             Assert.IsNotNull(tag);
@@ -389,7 +389,7 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsC");
 
             Assert.IsNull(tag);
@@ -422,7 +422,7 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsDomain");
 
             Assert.IsNotNull(tag);
@@ -456,7 +456,7 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsDomain");
 
             Assert.IsNull(tag);
@@ -486,7 +486,7 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationsDomain");
 
             Assert.IsNull(tag);
@@ -514,7 +514,7 @@ namespace TestLibraryManagement.Test
                 Extensions = new List<Extension>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
 
             Assert.IsNotNull(tag);
@@ -542,7 +542,7 @@ namespace TestLibraryManagement.Test
                 Extensions = new List<Extension>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
 
             Assert.IsNotNull(tag);
@@ -574,7 +574,7 @@ namespace TestLibraryManagement.Test
                 Extensions = new List<Extension>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
 
             Assert.IsNotNull(tag);
@@ -606,7 +606,7 @@ namespace TestLibraryManagement.Test
                 Extensions = new List<Extension>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
 
             Assert.IsNotNull(tag);
@@ -638,7 +638,7 @@ namespace TestLibraryManagement.Test
                 Extensions = new List<Extension>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
 
             Assert.IsNotNull(tag);
@@ -666,7 +666,7 @@ namespace TestLibraryManagement.Test
                 Extensions = new List<Extension>()
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublicationStock");
 
             Assert.IsNull(tag);
@@ -700,7 +700,7 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
 
             Assert.IsNotNull(tag);
@@ -730,7 +730,7 @@ namespace TestLibraryManagement.Test
                 }
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
 
             Assert.IsNull(tag);
@@ -776,7 +776,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
 
             Assert.IsNotNull(tag);
@@ -818,7 +818,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
 
             Assert.IsNull(tag);
@@ -874,7 +874,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
 
             Assert.IsNotNull(tag);
@@ -925,7 +925,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentions");
 
             Assert.IsNull(tag);
@@ -979,7 +979,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalBookDomain");
 
             Assert.IsNotNull(tag);
@@ -1029,7 +1029,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalBookDomain");
 
             Assert.IsNull(tag);
@@ -1093,7 +1093,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalBookDomain");
 
             Assert.IsNotNull(tag);
@@ -1153,7 +1153,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalBookDomain");
 
             Assert.IsNull(tag);
@@ -1218,7 +1218,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalBookDay");
 
             Assert.IsNotNull(tag);
@@ -1278,7 +1278,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalBookDay");
 
             Assert.IsNull(tag);
@@ -1353,7 +1353,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalBookDay");
 
             Assert.IsNotNull(tag);
@@ -1423,7 +1423,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalBookDay");
 
             Assert.IsNull(tag);
@@ -1483,7 +1483,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalSameBookGraceDate");
 
             Assert.IsNotNull(tag);
@@ -1541,7 +1541,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalSameBookGraceDate");
 
             Assert.IsNull(tag);
@@ -1611,7 +1611,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalSameBookGraceDate");
 
             Assert.IsNotNull(tag);
@@ -1679,7 +1679,7 @@ namespace TestLibraryManagement.Test
                 Reader = reader
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateWithdrawalSameBookGraceDate");
 
             Assert.IsNull(tag);
@@ -1719,7 +1719,7 @@ namespace TestLibraryManagement.Test
                 DueDate = DateTime.Today.AddDays(5)
             };
 
-            var results = this.WithdrawalService.CreateWithdrawal(withdrawal);
+            var results = this.WithdrawalService.Create(withdrawal);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());

@@ -52,7 +52,7 @@ namespace TestLibraryManagement.Test
         {
             PublishingCompany nullPublishingCompany = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.PublishingCompanyService.CreatePublishingCompany(nullPublishingCompany));
+            Assert.Throws<ArgumentNullException>(() => this.PublishingCompanyService.Create(nullPublishingCompany));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -67,7 +67,7 @@ namespace TestLibraryManagement.Test
                 Name = null
             };
 
-            var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
+            var results = this.PublishingCompanyService.Create(publishingCompany);
             var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameNull");
 
             Assert.IsNotNull(tag);
@@ -85,7 +85,7 @@ namespace TestLibraryManagement.Test
                 Name = string.Empty
             };
 
-            var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
+            var results = this.PublishingCompanyService.Create(publishingCompany);
             var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLength");
 
             Assert.IsNotNull(tag);
@@ -103,7 +103,7 @@ namespace TestLibraryManagement.Test
                 Name = new string('a', 210)
             };
 
-            var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
+            var results = this.PublishingCompanyService.Create(publishingCompany);
             var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLength");
 
             Assert.IsNotNull(tag);
@@ -121,7 +121,7 @@ namespace TestLibraryManagement.Test
                 Name = "RAO"
             };
 
-            var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
+            var results = this.PublishingCompanyService.Create(publishingCompany);
             var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyNameLength");
 
             Assert.IsNull(tag);
@@ -139,7 +139,7 @@ namespace TestLibraryManagement.Test
                 Publications = null
             };
 
-            var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
+            var results = this.PublishingCompanyService.Create(publishingCompany);
             var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyPublicationsNull");
 
             Assert.IsNotNull(tag);
@@ -157,7 +157,7 @@ namespace TestLibraryManagement.Test
                 Publications = new List<Publication>()
             };
 
-            var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
+            var results = this.PublishingCompanyService.Create(publishingCompany);
             var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyPublicationsNull");
 
             Assert.IsNull(tag);
@@ -175,7 +175,7 @@ namespace TestLibraryManagement.Test
                 Publications = new List<Publication> { new Publication { CoverType = Cover.HardCover } }
             };
 
-            var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
+            var results = this.PublishingCompanyService.Create(publishingCompany);
             var tag = results.FirstOrDefault(res => res.Tag == "PublishingCompanyPublicationsNull");
 
             Assert.IsNull(tag);
@@ -194,7 +194,7 @@ namespace TestLibraryManagement.Test
                 Publications = new List<Publication> { new Publication { CoverType = Cover.HardCover } }
             };
 
-            var results = this.PublishingCompanyService.CreatePublishingCompany(publishingCompany);
+            var results = this.PublishingCompanyService.Create(publishingCompany);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());

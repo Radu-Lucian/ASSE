@@ -55,7 +55,7 @@ namespace TestLibraryManagement.Test
         {
             Reader nullReader = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.ReaderService.CreateReader(nullReader));
+            Assert.Throws<ArgumentNullException>(() => this.ReaderService.Create(nullReader));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -70,7 +70,7 @@ namespace TestLibraryManagement.Test
                 FirstName = null
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameNull");
 
             Assert.IsNotNull(tag);
@@ -88,7 +88,7 @@ namespace TestLibraryManagement.Test
                 FirstName = string.Empty
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLength");
 
             Assert.IsNotNull(tag);
@@ -106,7 +106,7 @@ namespace TestLibraryManagement.Test
                 FirstName = new string('a', 210)
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLength");
 
             Assert.IsNotNull(tag);
@@ -124,7 +124,7 @@ namespace TestLibraryManagement.Test
                 FirstName = "Luci"
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderFirstNameLength");
 
             Assert.IsNull(tag);
@@ -142,7 +142,7 @@ namespace TestLibraryManagement.Test
                 LastName = null
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLength");
 
             Assert.IsNotNull(tag);
@@ -160,7 +160,7 @@ namespace TestLibraryManagement.Test
                 LastName = string.Empty
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLength");
 
             Assert.IsNotNull(tag);
@@ -178,7 +178,7 @@ namespace TestLibraryManagement.Test
                 LastName = new string('a', 210)
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLength");
 
             Assert.IsNotNull(tag);
@@ -196,7 +196,7 @@ namespace TestLibraryManagement.Test
                 LastName = "Radu"
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderLastNameLength");
 
             Assert.IsNull(tag);
@@ -214,7 +214,7 @@ namespace TestLibraryManagement.Test
                 Address = null
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressNull");
 
             Assert.IsNotNull(tag);
@@ -232,7 +232,7 @@ namespace TestLibraryManagement.Test
                 Address = string.Empty
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLength");
 
             Assert.IsNotNull(tag);
@@ -250,7 +250,7 @@ namespace TestLibraryManagement.Test
                 Address = new string('a', 210)
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLength");
 
             Assert.IsNotNull(tag);
@@ -268,7 +268,7 @@ namespace TestLibraryManagement.Test
                 Address = "Brasov, Com.Sanpetru, Str.Meschendorfer, 319"
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderAddressLength");
 
             Assert.IsNull(tag);
@@ -286,7 +286,7 @@ namespace TestLibraryManagement.Test
                 PhoneNumber = null
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderPhoneNumberInvalid");
 
             Assert.IsNull(tag);
@@ -304,7 +304,7 @@ namespace TestLibraryManagement.Test
                 PhoneNumber = string.Empty
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderPhoneNumberInvalid");
 
             Assert.IsNotNull(tag);
@@ -325,7 +325,7 @@ namespace TestLibraryManagement.Test
                 PhoneNumber = invalidPhoneNumber
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderPhoneNumberInvalid");
 
             Assert.IsNotNull(tag);
@@ -348,7 +348,7 @@ namespace TestLibraryManagement.Test
                 PhoneNumber = validPhoneNumber
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderPhoneNumberInvalid");
 
             Assert.IsNull(tag);
@@ -366,7 +366,7 @@ namespace TestLibraryManagement.Test
                 EmailAddress = null
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderEmailAddressNull");
 
             Assert.IsNull(tag);
@@ -384,7 +384,7 @@ namespace TestLibraryManagement.Test
                 EmailAddress = string.Empty
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderEmailAddressInvalid");
 
             Assert.IsNotNull(tag);
@@ -402,7 +402,7 @@ namespace TestLibraryManagement.Test
                 EmailAddress = "not an email address"
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderEmailAddressInvalid");
 
             Assert.IsNotNull(tag);
@@ -420,7 +420,7 @@ namespace TestLibraryManagement.Test
                 EmailAddress = "radulucian.andrei@gmail.com"
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderEmailAddressInvalid");
 
             Assert.IsNull(tag);
@@ -442,7 +442,7 @@ namespace TestLibraryManagement.Test
                 Withdrawals = new List<Withdrawal> { new Withdrawal() }
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateReaderPhoneEmail");
 
             Assert.IsNotNull(tag);
@@ -465,7 +465,7 @@ namespace TestLibraryManagement.Test
                 Withdrawals = new List<Withdrawal> { new Withdrawal() }
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateReaderPhoneEmail");
 
             Assert.IsNull(tag);
@@ -488,7 +488,7 @@ namespace TestLibraryManagement.Test
                 Withdrawals = new List<Withdrawal> { new Withdrawal() }
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateReaderPhoneEmail");
 
             Assert.IsNull(tag);
@@ -506,7 +506,7 @@ namespace TestLibraryManagement.Test
                 Gender = null
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderGenderNull");
 
             Assert.IsNotNull(tag);
@@ -524,7 +524,7 @@ namespace TestLibraryManagement.Test
                 Gender = "apache helicopter"
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderGenderInvalid");
 
             Assert.IsNotNull(tag);
@@ -546,7 +546,7 @@ namespace TestLibraryManagement.Test
                 Gender = validGender
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderGenderInvalid");
 
             Assert.IsNull(tag);
@@ -564,7 +564,7 @@ namespace TestLibraryManagement.Test
                 Withdrawals = null
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderWithdrawalsNull");
 
             Assert.IsNotNull(tag);
@@ -582,7 +582,7 @@ namespace TestLibraryManagement.Test
                 Withdrawals = new List<Withdrawal>()
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderWithdrawalsNull");
 
             Assert.IsNull(tag);
@@ -600,7 +600,7 @@ namespace TestLibraryManagement.Test
                 Withdrawals = new List<Withdrawal>() { new Withdrawal() }
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
             var tag = results.FirstOrDefault(res => res.Tag == "ReaderWithdrawalsNull");
 
             Assert.IsNull(tag);
@@ -624,7 +624,7 @@ namespace TestLibraryManagement.Test
                 Withdrawals = new List<Withdrawal> { new Withdrawal() }
             };
 
-            var results = this.ReaderService.CreateReader(reader);
+            var results = this.ReaderService.Create(reader);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());

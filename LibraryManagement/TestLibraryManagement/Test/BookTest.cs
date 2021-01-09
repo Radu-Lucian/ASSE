@@ -53,7 +53,7 @@ namespace TestLibraryManagement.Test
         {
             Book nullBook = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.BookService.CreateBook(nullBook));
+            Assert.Throws<ArgumentNullException>(() => this.BookService.Create(nullBook));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -68,7 +68,7 @@ namespace TestLibraryManagement.Test
                 Name = null
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "BookNameNull");
 
             Assert.IsNotNull(tag);
@@ -86,7 +86,7 @@ namespace TestLibraryManagement.Test
                 Name = string.Empty
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "BookNameLength");
 
             Assert.IsNotNull(tag);
@@ -104,7 +104,7 @@ namespace TestLibraryManagement.Test
                 Name = new string('a', 210)
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "BookNameLength");
 
             Assert.IsNotNull(tag);
@@ -122,7 +122,7 @@ namespace TestLibraryManagement.Test
                 Name = "Origin"
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "BookNameLength");
 
             Assert.IsNull(tag);
@@ -141,7 +141,7 @@ namespace TestLibraryManagement.Test
                 Domains = null
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "BookDomainsNull");
 
             Assert.IsNotNull(tag);
@@ -160,7 +160,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain>()
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateDomains");
 
             Assert.IsNotNull(tag);
@@ -179,7 +179,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain> { new Domain { Name = "Informatics" }, new Domain { Name = "Mathematics" }, new Domain { Name = "Psychology" } }
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateDomainsDOM");
 
             Assert.IsNotNull(tag);
@@ -198,7 +198,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain> { new Domain { Name = "Informatics" }, new Domain { Name = "Mathematics" } }
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateDomainsDOM");
 
             Assert.IsNull(tag);
@@ -219,7 +219,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain> { domain1, domain2 }
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateDomainsInharitance");
 
             Assert.IsNotNull(tag);
@@ -241,7 +241,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain> { domain1, domain2 }
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateDomainsInharitance");
 
             Assert.IsNotNull(tag);
@@ -264,7 +264,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain> { domain1, domain2 }
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateDomainsInharitance");
 
             Assert.IsNull(tag);
@@ -283,7 +283,7 @@ namespace TestLibraryManagement.Test
                 Authors = null
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "BookAuthorsNull");
 
             Assert.IsNotNull(tag);
@@ -303,7 +303,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain>()
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateAuthors");
 
             Assert.IsNotNull(tag);
@@ -323,7 +323,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain>()
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateAuthors");
 
             Assert.IsNull(tag);
@@ -342,7 +342,7 @@ namespace TestLibraryManagement.Test
                 Publications = null
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "BookPublicationsNull");
 
             Assert.IsNotNull(tag);
@@ -363,7 +363,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain>()
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublications");
 
             Assert.IsNotNull(tag);
@@ -384,7 +384,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain>()
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidatePublications");
 
             Assert.IsNull(tag);
@@ -405,7 +405,7 @@ namespace TestLibraryManagement.Test
                 Domains = new List<Domain> { new Domain { Name = "Informatics" } }
             };
 
-            var results = this.BookService.CreateBook(book);
+            var results = this.BookService.Create(book);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());

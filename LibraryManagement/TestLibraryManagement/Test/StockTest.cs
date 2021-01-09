@@ -52,7 +52,7 @@ namespace TestLibraryManagement.Test
         {
             Stock nullStock = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.StockService.CreateStock(nullStock));
+            Assert.Throws<ArgumentNullException>(() => this.StockService.Create(nullStock));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -67,7 +67,7 @@ namespace TestLibraryManagement.Test
                 InitialStock = -1
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockInitialStockInvalid");
 
             Assert.IsNotNull(tag);
@@ -85,7 +85,7 @@ namespace TestLibraryManagement.Test
                 InitialStock = int.MaxValue
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockInitialStockInvalid");
 
             Assert.IsNull(tag);
@@ -103,7 +103,7 @@ namespace TestLibraryManagement.Test
                 InitialStock = 500
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockInitialStockInvalid");
 
             Assert.IsNull(tag);
@@ -121,7 +121,7 @@ namespace TestLibraryManagement.Test
                 RentedStock = -1
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockRentedStockInvalid");
 
             Assert.IsNotNull(tag);
@@ -139,7 +139,7 @@ namespace TestLibraryManagement.Test
                 RentedStock = int.MaxValue
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockRentedStockInvalid");
 
             Assert.IsNull(tag);
@@ -157,7 +157,7 @@ namespace TestLibraryManagement.Test
                 RentedStock = 0
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockRentedStockInvalid");
 
             Assert.IsNull(tag);
@@ -175,7 +175,7 @@ namespace TestLibraryManagement.Test
                 NumberOfBooksForLecture = -1
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockNumberOfBooksForLectureInvalid");
 
             Assert.IsNotNull(tag);
@@ -193,7 +193,7 @@ namespace TestLibraryManagement.Test
                 NumberOfBooksForLecture = int.MaxValue
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockNumberOfBooksForLectureInvalid");
 
             Assert.IsNull(tag);
@@ -211,7 +211,7 @@ namespace TestLibraryManagement.Test
                 NumberOfBooksForLecture = 1000
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockNumberOfBooksForLectureInvalid");
 
             Assert.IsNull(tag);
@@ -229,7 +229,7 @@ namespace TestLibraryManagement.Test
                 Publication = null
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockPublicationNull");
 
             Assert.IsNotNull(tag);
@@ -247,7 +247,7 @@ namespace TestLibraryManagement.Test
                 Publication = new Publication()
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "StockPublicationNull");
 
             Assert.IsNull(tag);
@@ -266,7 +266,7 @@ namespace TestLibraryManagement.Test
                 NumberOfBooksForLecture = 150
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateBookStock");
 
             Assert.IsNotNull(tag);
@@ -286,7 +286,7 @@ namespace TestLibraryManagement.Test
                 Publication = new Publication()
             };
 
-            var results = this.StockService.CreateStock(stock);
+            var results = this.StockService.Create(stock);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());

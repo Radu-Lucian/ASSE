@@ -52,7 +52,7 @@ namespace TestLibraryManagement.Test
         {
             Extension nullExtention = null;
 
-            Assert.Throws<ArgumentNullException>(() => this.ExtensionService.CreateExtension(nullExtention));
+            Assert.Throws<ArgumentNullException>(() => this.ExtensionService.Create(nullExtention));
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
@@ -67,7 +67,7 @@ namespace TestLibraryManagement.Test
                 ExtraDays = 0
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ExtentionsExtraDays");
 
             Assert.IsNotNull(tag);
@@ -85,7 +85,7 @@ namespace TestLibraryManagement.Test
                 ExtraDays = 370
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ExtentionsExtraDays");
 
             Assert.IsNotNull(tag);
@@ -103,7 +103,7 @@ namespace TestLibraryManagement.Test
                 ExtraDays = 5
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ExtentionsExtraDays");
 
             Assert.IsNull(tag);
@@ -121,7 +121,7 @@ namespace TestLibraryManagement.Test
                 CreationDate = new DateTime(2009, 12, 31)
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ExtentionsCreationDate");
 
             Assert.IsNotNull(tag);
@@ -139,7 +139,7 @@ namespace TestLibraryManagement.Test
                 CreationDate = new DateTime(2100, 1, 2)
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ExtentionsCreationDate");
 
             Assert.IsNotNull(tag);
@@ -157,7 +157,7 @@ namespace TestLibraryManagement.Test
                 CreationDate = DateTime.Today.AddDays(1)
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentionCreationDate");
 
             Assert.IsNotNull(tag);
@@ -175,7 +175,7 @@ namespace TestLibraryManagement.Test
                 CreationDate = DateTime.Today.AddDays(-1)
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ValidateExtentionCreationDate");
 
             Assert.IsNull(tag);
@@ -193,7 +193,7 @@ namespace TestLibraryManagement.Test
                 Withdrawal = null
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ExtentionWithdrawalNull");
 
             Assert.IsNotNull(tag);
@@ -211,7 +211,7 @@ namespace TestLibraryManagement.Test
                 Withdrawal = new Withdrawal { }
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
             var tag = results.FirstOrDefault(res => res.Tag == "ExtentionWithdrawalNull");
 
             Assert.IsNull(tag);
@@ -231,7 +231,7 @@ namespace TestLibraryManagement.Test
                 Withdrawal = new Withdrawal { }
             };
 
-            var results = this.ExtensionService.CreateExtension(extention);
+            var results = this.ExtensionService.Create(extention);
 
             Assert.IsEmpty(results);
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());
