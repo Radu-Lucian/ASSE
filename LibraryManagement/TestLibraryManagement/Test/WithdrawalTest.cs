@@ -1628,6 +1628,27 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestWithdrawalGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestWithdrawalGetterSetterId()
+        {
+            int id = 5;
+
+            var withdrawal = new Withdrawal
+            {
+                Publications = new List<Publication>(),
+                Extensions = new List<Extension>(),
+                RentedDate = DateTime.Today.AddDays(-5),
+                DueDate = DateTime.Today.AddDays(5)
+            };
+
+            typeof(Withdrawal).GetProperty(nameof(Withdrawal.Id)).SetValue(withdrawal, id);
+
+            Assert.IsTrue(id == withdrawal.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestAddValidWithdrawal.
         /// </summary>
         [Test]

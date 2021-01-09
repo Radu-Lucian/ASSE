@@ -256,6 +256,24 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestAuthorGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestAuthorGetterSetterId()
+        {
+            int id = 5;
+            var author = new Author
+            {
+                FirstName = "Lucian",
+                LastName = "Radu",
+                Books = new List<Book> { new Book { Name = "Origin" } }
+            };
+            typeof(Author).GetProperty(nameof(Author.Id)).SetValue(author, id);
+
+            Assert.IsTrue(id == author.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestAddValidAuthor.
         /// </summary>
         [Test]

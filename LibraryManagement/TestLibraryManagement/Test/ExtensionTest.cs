@@ -219,6 +219,25 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestExtensionGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestExtensionGetterSetterId()
+        {
+            int id = 5;
+            var extention = new Extension
+            {
+                ExtraDays = 5,
+                CreationDate = DateTime.Today.AddDays(-5),
+                Withdrawal = new Withdrawal { }
+            };
+
+            typeof(Extension).GetProperty(nameof(Extension.Id)).SetValue(extention, id);
+
+            Assert.IsTrue(id == extention.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestValidExtension.
         /// </summary>
         [Test]

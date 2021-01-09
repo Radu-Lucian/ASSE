@@ -608,6 +608,29 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestReaderGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestReaderGetterSetterId()
+        {
+            int id = 5;
+            var reader = new Reader
+            {
+                FirstName = "Lucian",
+                LastName = "Radu",
+                Address = "Brasov, Com.Sanpetru, Str.Meschendorfer, 319",
+                Gender = "M",
+                EmailAddress = "radulucian.andrei@gmail.com",
+                PhoneNumber = "0784000292",
+                Withdrawals = new List<Withdrawal> { new Withdrawal() }
+            };
+
+            typeof(Reader).GetProperty(nameof(Reader.Id)).SetValue(reader, id);
+
+            Assert.IsTrue(id == reader.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestAddValidReader.
         /// </summary>
         [Test]

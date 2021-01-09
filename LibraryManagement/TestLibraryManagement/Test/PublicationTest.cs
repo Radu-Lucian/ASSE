@@ -348,6 +348,29 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestPublicationGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestPublicationGetterSetterId()
+        {
+            int id = 5;
+            var publication = new Publication
+            {
+                CoverType = Cover.HardCover,
+                NumberOfPages = 459,
+                PublicationDate = DateTime.Today.AddDays(-1),
+                Book = new Book(),
+                Stock = new Stock(),
+                PublishingCompany = new PublishingCompany(),
+                BookWithdrawals = new List<Withdrawal>()
+            };
+
+            typeof(Publication).GetProperty(nameof(Publication.Id)).SetValue(publication, id);
+
+            Assert.IsTrue(id == publication.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestAddPublication.
         /// </summary>
         [Test]

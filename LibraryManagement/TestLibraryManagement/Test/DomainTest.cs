@@ -220,6 +220,24 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestDomainGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestDomainGetterSetterId()
+        {
+            int id = 5;
+            var domain = new Domain
+            {
+                Name = "Science",
+                Books = new List<Book>()
+            };
+
+            typeof(Domain).GetProperty(nameof(Domain.Id)).SetValue(domain, id);
+
+            Assert.IsTrue(id == domain.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestAddValidDomain.
         /// </summary>
         [Test]

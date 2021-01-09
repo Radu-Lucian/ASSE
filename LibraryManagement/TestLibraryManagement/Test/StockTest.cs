@@ -274,6 +274,25 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestStockGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestStockGetterSetterId()
+        {
+            int id = 5;
+            var stock = new Stock
+            {
+                InitialStock = 100,
+                NumberOfBooksForLecture = 50,
+                Publication = new Publication()
+            };
+
+            typeof(Stock).GetProperty(nameof(Stock.Id)).SetValue(stock, id);
+
+            Assert.IsTrue(id == stock.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestAddValidStock.
         /// </summary>
         [Test]

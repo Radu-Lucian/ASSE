@@ -183,6 +183,24 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestPublishingCompanyGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestPublishingCompanyGetterSetterId()
+        {
+            int id = 5;
+            var publishingCompany = new PublishingCompany
+            {
+                Name = "RAO",
+                Publications = new List<Publication> { new Publication { CoverType = Cover.HardCover } }
+            };
+
+            typeof(PublishingCompany).GetProperty(nameof(PublishingCompany.Id)).SetValue(publishingCompany, id);
+
+            Assert.IsTrue(id == publishingCompany.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestAddValidPublishingCompany.
         /// </summary>
         [Test]

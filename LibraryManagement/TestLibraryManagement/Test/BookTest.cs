@@ -395,6 +395,26 @@ namespace TestLibraryManagement.Test
         }
 
         /// <summary>
+        /// Defines the test method TestGetterSetterId.
+        /// </summary>
+        [Test]
+        public void TestBookGetterSetterId()
+        {
+            int id = 5;
+            var book = new Book
+            {
+                Name = "Origin",
+                Authors = new List<Author> { new Author { FirstName = "Luci", LastName = "Radu" } },
+                Publications = new List<Publication> { new Publication() },
+                Domains = new List<Domain> { new Domain { Name = "Informatics" } }
+            };
+
+            typeof(Book).GetProperty(nameof(Book.Id)).SetValue(book, id);
+
+            Assert.IsTrue(id == book.Id);
+        }
+
+        /// <summary>
         /// Defines the test method TestAddValidBook.
         /// </summary>
         [Test]
