@@ -4,7 +4,6 @@
 // <summary> Defines the IBase service. </summary>
 namespace ServiceLayer.Service.Base
 {
-    using System.Collections.Generic;
     using Microsoft.Practices.EnterpriseLibrary.Validation;
 
     /// <summary>
@@ -35,9 +34,10 @@ namespace ServiceLayer.Service.Base
         ValidationResults Delete(T toDelete);
 
         /// <summary>
-        /// Finds all.
+        /// Finds the specified identifier.
         /// </summary>
-        /// <returns>ICollection <typeparamref name="T" /> of entities.</returns>
-        ICollection<T> FindAll();
+        /// <param name="id">The identifier.</param>
+        /// <returns>Entity T.</returns>
+        T Find(int id);
     }
 }

@@ -15,10 +15,11 @@ namespace DataMapper.Repository.RepositoryBase
     public interface IRepositoryBase<T>
     {
         /// <summary>
-        /// Finds all.
+        /// Finds the specified identifier.
         /// </summary>
-        /// <returns>Returns all entities</returns>
-        IQueryable<T> FindAll();
+        /// <param name="id">The identifier.</param>
+        /// <returns>Entity T.</returns>
+        T Find(int id);
 
         /// <summary>
         /// Finds the by condition.

@@ -4,7 +4,6 @@
 // <summary> Defines the Base service. </summary>
 namespace ServiceLayer.Service.Base
 {
-    using System.Collections.Generic;
     using System.Reflection;
     using DataMapper.Logger;
     using DataMapper.Repository.RepositoryBase;
@@ -136,9 +135,9 @@ namespace ServiceLayer.Service.Base
         /// Finds all.
         /// </summary>
         /// <returns>ICollection <typeparamref name="T" /> of entities.</returns>
-        public ICollection<T> FindAll()
+        public T Find(int id)
         {
-            return (ICollection<T>)this.Repository.FindAll();
+            return this.Repository.Find(id);
         }
     }
 }

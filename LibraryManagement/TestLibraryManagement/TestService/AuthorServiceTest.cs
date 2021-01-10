@@ -70,6 +70,8 @@ namespace TestLibraryManagement.TestService
             mockSet.As<IQueryable<Author>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
             mockSet.As<IQueryable<Author>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
             mockSet.Setup(d => d.Add(It.IsAny<Author>())).Callback<Author>((s) => this.AuthorList.Add(s));
+            mockSet.Setup(m => m.Find(It.IsAny<object[]>())).Returns<object[]>(ids => this.AuthorList.FirstOrDefault(d => d.Id == (int)ids[0]));
+            // mockSet.Setup(m => m.AsNoTracking()).Returns(mockSet.Object);
 
             this.LibraryContextMock = new Mock<LibraryManagementContext>();
             this.LibraryContextMock.Setup(m => m.Set<Author>()).Returns(mockSet.Object);
@@ -198,9 +200,9 @@ namespace TestLibraryManagement.TestService
         [Test]
         public void TestFindAllAuthors()
         {
-            var authors = this.AuthorService.FindAll();
+            var authors = this.AuthorService.Find(0);
 
-            Assert.IsTrue(authors.Count == this.AuthorList.Count);
+            Assert.IsNotNull(authors);
         }
     }
 }

@@ -88,12 +88,12 @@ namespace DataMapper.Repository.RepositoryBase
         /// <returns>
         /// Returns all entities
         /// </returns>
-        public virtual IQueryable<T> FindAll()
+        public virtual T Find(int id)
         {
             this.Logger.LogInfo($"Find all", MethodBase.GetCurrentMethod());
             try
             {
-                return this.LibraryDbContext.Set<T>().AsNoTracking();
+                return this.LibraryDbContext.Set<T>().Find(id);
             }
             catch (Exception ex)
             {
