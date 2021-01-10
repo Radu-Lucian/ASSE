@@ -63,6 +63,10 @@ namespace TestLibraryManagement.TestService
                         Domains = new List<Domain> { new Domain { Name = "Science" } }
                     },
             };
+
+            typeof(Book).GetProperty(nameof(Book.Id)).SetValue(this.BookList[0], 0);
+            typeof(Book).GetProperty(nameof(Book.Id)).SetValue(this.BookList[1], 1);
+
             var queryable = this.BookList.AsQueryable();
 
             var mockSet = new Mock<DbSet<Book>>();

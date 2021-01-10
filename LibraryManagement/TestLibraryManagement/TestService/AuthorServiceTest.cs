@@ -61,6 +61,10 @@ namespace TestLibraryManagement.TestService
                         Books = new List<Book> { new Book { Name = "Stars" } }
                     },
             };
+
+            typeof(Author).GetProperty(nameof(Author.Id)).SetValue(this.AuthorList[0], 0);
+            typeof(Author).GetProperty(nameof(Author.Id)).SetValue(this.AuthorList[1], 1);
+
             var queryable = this.AuthorList.AsQueryable();
 
             var mockSet = new Mock<DbSet<Author>>();

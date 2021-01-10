@@ -61,6 +61,10 @@ namespace TestLibraryManagement.TestService
                         Withdrawal = new Withdrawal { }
                     },
             };
+
+            typeof(Extension).GetProperty(nameof(Extension.Id)).SetValue(this.ExtensionList[0], 0);
+            typeof(Extension).GetProperty(nameof(Extension.Id)).SetValue(this.ExtensionList[1], 1);
+
             var queryable = this.ExtensionList.AsQueryable();
 
             var mockSet = new Mock<DbSet<Extension>>();
