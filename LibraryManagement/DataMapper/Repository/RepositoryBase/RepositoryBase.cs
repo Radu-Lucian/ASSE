@@ -83,11 +83,10 @@ namespace DataMapper.Repository.RepositoryBase
         }
 
         /// <summary>
-        /// Finds all.
+        /// Finds the specified identifier.
         /// </summary>
-        /// <returns>
-        /// Returns all entities
-        /// </returns>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Entity T.</returns>
         public virtual T Find(int id)
         {
             this.Logger.LogInfo($"Find all", MethodBase.GetCurrentMethod());

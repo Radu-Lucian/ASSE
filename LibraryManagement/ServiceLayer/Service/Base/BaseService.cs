@@ -132,9 +132,10 @@ namespace ServiceLayer.Service.Base
         }
 
         /// <summary>
-        /// Finds all.
+        /// Finds the specified identifier.
         /// </summary>
-        /// <returns>ICollection <typeparamref name="T" /> of entities.</returns>
+        /// <param name="id">The identifier.</param>
+        /// <returns>Entity T.</returns>
         public T Find(int id)
         {
             return this.Repository.Find(id);
