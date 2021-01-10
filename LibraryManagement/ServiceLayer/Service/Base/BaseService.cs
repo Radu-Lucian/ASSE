@@ -132,6 +132,15 @@ namespace ServiceLayer.Service.Base
         }
 
         /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public void Delete(int id)
+        {
+            this.Repository.Delete(id);
+        }
+
+        /// <summary>
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>

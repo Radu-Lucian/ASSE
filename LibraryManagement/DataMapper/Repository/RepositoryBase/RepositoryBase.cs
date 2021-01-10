@@ -83,20 +83,40 @@ namespace DataMapper.Repository.RepositoryBase
         }
 
         /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        public virtual void Delete(int id)
+        {
+            this.Logger.LogInfo($"Deleting {typeof(T).Name} with id {id}", MethodBase.GetCurrentMethod());
+            try
+            {
+                var entityToDelete = this.Find(id);
+                this.LibraryDbContext.Entry(entityToDelete).State = EntityState.Deleted;
+                this.LibraryDbContext.Set<T>().Remove(entityToDelete);
+                this.LibraryDbContext.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogWarning($"Error on Deleting {typeof(T).Name}, message {ex.Message}", MethodBase.GetCurrentMethod());
+            }
+        }
+
+        /// <summary>
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
         /// <returns>Entity T.</returns>
         public virtual T Find(int id)
         {
-            this.Logger.LogInfo($"Find all", MethodBase.GetCurrentMethod());
+            this.Logger.LogInfo($"Find {typeof(T).Name} with id {id}", MethodBase.GetCurrentMethod());
             try
             {
                 return this.LibraryDbContext.Set<T>().Find(id);
             }
             catch (Exception ex)
             {
-                this.Logger.LogWarning($"Find all, message {ex.Message}", MethodBase.GetCurrentMethod());
+                this.Logger.LogWarning($"Find, message {ex.Message}", MethodBase.GetCurrentMethod());
             }
 
             return null;

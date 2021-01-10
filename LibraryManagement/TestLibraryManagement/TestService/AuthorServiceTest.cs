@@ -14,7 +14,6 @@ namespace TestLibraryManagement.TestService
     using Moq;
     using NUnit.Framework;
     using ServiceLayer.Service;
-    using ServiceLayer.Service.Base;
 
     /// <summary>
     /// Defines test class AuthorTest.
@@ -26,7 +25,7 @@ namespace TestLibraryManagement.TestService
         /// Gets or sets the author service.
         /// </summary>
         /// <value>The author service.</value>
-        private IBaseService<Author> AuthorService { get; set; }
+        private AuthorService AuthorService { get; set; }
 
         /// <summary>
         /// Gets or sets the library context mock.
@@ -147,6 +146,28 @@ namespace TestLibraryManagement.TestService
             Author nullAuthor = null;
 
             Assert.Throws<ArgumentNullException>(() => this.AuthorService.Delete(nullAuthor));
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
+        }
+
+        /// <summary>
+        /// Defines the test method TestDeleteExistingAuthorWithId.
+        /// </summary>
+        [Test]
+        public void TestDeleteExistingAuthorWithId()
+        {
+            this.AuthorService.Delete(0);
+
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());
+        }
+
+        /// <summary>
+        /// Defines the test method TestDeleteInvalidAuthorWithId.
+        /// </summary>
+        [Test]
+        public void TestDeleteInvalidAuthorWithId()
+        {
+            this.AuthorService.Delete(55);
+
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 

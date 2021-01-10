@@ -45,5 +45,11 @@ namespace DataMapper.Repository.RepositoryBase
         /// </summary>
         /// <param name="entity">The entity.</param>
         void Delete(T entity);
+
+        /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        void Delete(int id);
     }
 }

@@ -34,6 +34,12 @@ namespace ServiceLayer.Service.Base
         ValidationResults Delete(T toDelete);
 
         /// <summary>
+        /// Deletes the specified identifier.
+        /// </summary>
+        /// <param name="id">The identifier.</param>
+        void Delete(int id);
+
+        /// <summary>
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
