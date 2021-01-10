@@ -9,29 +9,29 @@ namespace DataMapper.Repository.RepositoryBase
     using System.Linq.Expressions;
 
     /// <summary>
-    /// The IRepositoryBase interface
+    /// The IRepositoryBase interface.
     /// </summary>
-    /// <typeparam name="T">Entity data model</typeparam>
+    /// <typeparam name="T">Entity data model.</typeparam>
     public interface IRepositoryBase<T>
     {
         /// <summary>
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>Entity T.</returns>
+        /// <returns>Valid entity <see cref="T"/>.</returns>
         T Find(int id);
 
         /// <summary>
         /// Finds all.
         /// </summary>
-        /// <returns>Returns all <typeparamref name="T"/> entities</returns>
+        /// <returns>Returns all <typeparamref name="T"/> entities.</returns>
         IQueryable<T> FindAll();
 
         /// <summary>
         /// Finds the by condition.
         /// </summary>
         /// <param name="expression">The expression.</param>
-        /// <returns>Return entities that met the condition</returns>
+        /// <returns>Return entities that met the condition.</returns>
         IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression);
 
         /// <summary>

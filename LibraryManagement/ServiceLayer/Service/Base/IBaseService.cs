@@ -8,7 +8,7 @@ namespace ServiceLayer.Service.Base
     using Microsoft.Practices.EnterpriseLibrary.Validation;
 
     /// <summary>
-    /// Interface IBaseService
+    /// Interface IBaseService.
     /// </summary>
     /// <typeparam name="T">Entity type.</typeparam>
     public interface IBaseService<T>
@@ -44,7 +44,7 @@ namespace ServiceLayer.Service.Base
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>Entity T.</returns>
+        /// <returns>Valid entity <see cref="T"/>.</returns>
         T Find(int id);
 
         /// <summary>

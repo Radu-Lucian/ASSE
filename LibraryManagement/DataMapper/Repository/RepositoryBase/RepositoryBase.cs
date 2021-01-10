@@ -15,7 +15,7 @@ namespace DataMapper.Repository.RepositoryBase
     /// <summary>
     /// RepositoryBase class.
     /// </summary>
-    /// <typeparam name="T">The data model entity</typeparam>
+    /// <typeparam name="T">The data model entity.</typeparam>
     /// <seealso cref="LibraryManagement.DataMapper.IRepositoryBase{T}" />
     public class RepositoryBase<T> : IRepositoryBase<T> where T : class
     {
@@ -106,7 +106,7 @@ namespace DataMapper.Repository.RepositoryBase
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>Entity T.</returns>
+        /// <returns>Valid entity <see cref="T"/>.</returns>
         public virtual T Find(int id)
         {
             this.Logger.LogInfo($"Find {typeof(T).Name} with id {id}", MethodBase.GetCurrentMethod());
@@ -127,7 +127,7 @@ namespace DataMapper.Repository.RepositoryBase
         /// </summary>
         /// <param name="expression">The expression.</param>
         /// <returns>
-        /// Return entities that met the condition
+        /// Return entities that met the condition.
         /// </returns>
         public virtual IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
@@ -147,7 +147,7 @@ namespace DataMapper.Repository.RepositoryBase
         /// <summary>
         /// Finds all.
         /// </summary>
-        /// <returns>Returns all <typeparamref name="T" /> entities</returns>
+        /// <returns>Returns all <typeparamref name="T" /> entities.</returns>
         public virtual IQueryable<T> FindAll()
         {
             this.Logger.LogInfo($"Find all {typeof(T).Name} entries", MethodBase.GetCurrentMethod());

@@ -145,7 +145,7 @@ namespace ServiceLayer.Service.Base
         /// Finds the specified identifier.
         /// </summary>
         /// <param name="id">The identifier.</param>
-        /// <returns>Entity T.</returns>
+        /// <returns>Valid entity <see cref="T"/>.</returns>
         public T Find(int id)
         {
             return this.Repository.Find(id);

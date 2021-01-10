@@ -9,7 +9,7 @@
 // <copyright file="Program.cs" company="Transilvania University Of Brasov">
 // Radu Lucian Andrei
 // </copyright>
-// <summary></summary>
+// <summary>Main class.</summary>
 // ***********************************************************************
 
 namespace Testing
