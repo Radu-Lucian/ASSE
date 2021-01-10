@@ -68,8 +68,9 @@ namespace TestLibraryManagement.TestService
             mockSet.As<IQueryable<Author>>().Setup(m => m.Expression).Returns(queryable.Expression);
             mockSet.As<IQueryable<Author>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
             mockSet.As<IQueryable<Author>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
-            mockSet.Setup(d => d.Add(It.IsAny<Author>())).Callback<Author>((s) => this.AuthorList.Add(s));
+            mockSet.Setup(m => m.Add(It.IsAny<Author>())).Callback<Author>((entity) => this.AuthorList.Add(entity));
             mockSet.Setup(m => m.Find(It.IsAny<object[]>())).Returns<object[]>(ids => this.AuthorList.FirstOrDefault(d => d.Id == (int)ids[0]));
+            mockSet.Setup(m => m.Remove(It.IsAny<Author>())).Callback<Author>((entity) => this.AuthorList.Remove(entity));
             mockSet.Setup(m => m.AsNoTracking()).Returns(mockSet.Object);
 
             this.LibraryContextMock = new Mock<LibraryManagementContext>();
@@ -121,6 +122,7 @@ namespace TestLibraryManagement.TestService
             var results = this.AuthorService.Delete(author);
 
             Assert.IsEmpty(results);
+            Assert.IsTrue(this.AuthorList.Count == 1);
         }
 
         /// <summary>
@@ -158,6 +160,7 @@ namespace TestLibraryManagement.TestService
             this.AuthorService.Delete(0);
 
             this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());
+            Assert.IsTrue(this.AuthorList.Count == 1);
         }
 
         /// <summary>
