@@ -10,10 +10,10 @@ namespace ServiceLayer.Service
 
     /// <summary>
     /// Class PublishingCompanyService.
-    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.PublishingCompanyRepository, DomainModel.Model.PublishingCompany}" />
+    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.PublishingCompany}" />
     /// </summary>
-    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.PublishingCompanyRepository, DomainModel.Model.PublishingCompany}" />
-    public class PublishingCompanyService : BaseService<PublishingCompanyRepository, PublishingCompany>
+    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.PublishingCompany}" />
+    public class PublishingCompanyService : BaseService<PublishingCompany>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="PublishingCompanyService"/> class.

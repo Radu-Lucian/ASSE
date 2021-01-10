@@ -10,10 +10,10 @@ namespace ServiceLayer.Service
 
     /// <summary>
     /// Class ExtensionService.
-    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.ExtensionRepository, DomainModel.Model.Extension}" />
+    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Extension}" />
     /// </summary>
-    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.ExtensionRepository, DomainModel.Model.Extension}" />
-    public class ExtensionService : BaseService<ExtensionRepository, Extension>
+    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Extension}" />
+    public class ExtensionService : BaseService<Extension>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="ExtensionService"/> class.

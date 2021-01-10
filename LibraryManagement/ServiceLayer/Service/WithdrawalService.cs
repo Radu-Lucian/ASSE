@@ -10,10 +10,10 @@ namespace ServiceLayer.Service
 
     /// <summary>
     /// Class WithdrawalService.
-    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.WithdrawalRepository, DomainModel.Model.Withdrawal}" />
+    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Withdrawal}" />
     /// </summary>
-    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.WithdrawalRepository, DomainModel.Model.Withdrawal}" />
-    public class WithdrawalService : BaseService<WithdrawalRepository, Withdrawal>
+    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Withdrawal}" />
+    public class WithdrawalService : BaseService<Withdrawal>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="WithdrawalService"/> class.

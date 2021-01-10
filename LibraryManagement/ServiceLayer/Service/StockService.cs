@@ -10,10 +10,10 @@ namespace ServiceLayer.Service
 
     /// <summary>
     /// Class StockService.
-    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.StockRepository, DomainModel.Model.Stock}" />
+    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Stock}" />
     /// </summary>
-    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.StockRepository, DomainModel.Model.Stock}" />
-    public class StockService : BaseService<StockRepository, Stock>
+    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Stock}" />
+    public class StockService : BaseService<Stock>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="StockService"/> class.

@@ -10,10 +10,10 @@ namespace ServiceLayer.Service
 
     /// <summary>
     /// Class AuthorService.
-    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.AuthorRepository, DomainModel.Model.Author}" />
+    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Author}" />
     /// </summary>
-    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.AuthorRepository, DomainModel.Model.Author}" />
-    public class AuthorService : BaseService<AuthorRepository, Author>
+    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Author}" />
+    public class AuthorService : BaseService<Author>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuthorService"/> class.

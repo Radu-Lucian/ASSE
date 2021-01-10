@@ -13,17 +13,15 @@ namespace ServiceLayer.Service.Base
     /// <summary>
     /// Class BaseService.
     /// </summary>
-    /// <typeparam name="R">Repository of entity T.</typeparam>
-    /// <typeparam name="T">Entity for repository.</typeparam>
-    public class BaseService<R, T>
-        where R : RepositoryBase<T>
+    /// <typeparam name="T">Entity type.</typeparam>
+    public class BaseService<T> : IBaseService<T>
         where T : class
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseService{R, T}" /> class.
+        /// Initializes a new instance of the <see cref="BaseService{T}"/> class.
         /// </summary>
         /// <param name="repository">The repository.</param>
-        public BaseService(R repository)
+        public BaseService(IRepositoryBase<T> repository)
         {
             this.Repository = repository;
             this.Logger = new Logger();
@@ -39,7 +37,7 @@ namespace ServiceLayer.Service.Base
         /// Gets or sets the repository.
         /// </summary>
         /// <value>The repository.</value>
-        private R Repository { get; set; }
+        private IRepositoryBase<T> Repository { get; set; }
 
         /// <summary>
         /// Creates the specified to create.
@@ -137,7 +135,7 @@ namespace ServiceLayer.Service.Base
         /// <summary>
         /// Finds all.
         /// </summary>
-        /// <returns>ICollection <typeparamref name="T"/> of entities .</returns>
+        /// <returns>ICollection <typeparamref name="T" /> of entities.</returns>
         public ICollection<T> FindAll()
         {
             return (ICollection<T>)this.Repository.FindAll();

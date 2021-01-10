@@ -10,10 +10,10 @@ namespace ServiceLayer.Service
 
     /// <summary>
     /// Class LibrarianService.
-    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.LibrarianRepository, DomainModel.Model.Librarian}" />
+    /// Implements the <see cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Librarian}" />
     /// </summary>
-    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DataMapper.Repository.LibrarianRepository, DomainModel.Model.Librarian}" />
-    public class LibrarianService : BaseService<LibrarianRepository, Librarian>
+    /// <seealso cref="ServiceLayer.Service.Base.BaseService{DomainModel.Model.Librarian}" />
+    public class LibrarianService : BaseService<Librarian>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="LibrarianService"/> class.

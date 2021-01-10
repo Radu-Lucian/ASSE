@@ -20,8 +20,4 @@
     <ProjectReference Include="..\ServiceLayer\ServiceLayer.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="TestService\" />
-  </ItemGroup>
-
 </Project>

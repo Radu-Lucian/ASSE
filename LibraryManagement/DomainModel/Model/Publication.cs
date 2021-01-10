@@ -85,6 +85,7 @@ namespace DomainModel.Model
         /// <value>
         /// The stock.
         /// </value>
+        [System.ComponentModel.DataAnnotations.Required]
         [NotNullValidator(MessageTemplate = "Publication stock cannot be null", Tag = "PublicationStockNull")]
         public virtual Stock Stock { get; set; }
 
