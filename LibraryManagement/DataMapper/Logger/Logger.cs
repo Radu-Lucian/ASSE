@@ -24,10 +24,9 @@ namespace DataMapper.Logger
         /// <param name="method">The method.</param>
         public void LogError(string message, MethodBase method)
         {
-            string methodName = method.DeclaringType.Name + "." + method.Name;
             if (Log.IsInfoEnabled)
             {
-                Log.Error("[" + methodName + "]:" + message);
+                Log.Error($"[{method.DeclaringType.Name}.{method.Name}]:{message}");
             }
         }
 
@@ -47,10 +46,9 @@ namespace DataMapper.Logger
         /// <param name="method">The method.</param>
         public void LogInfo(string message, MethodBase method)
         {
-            string methodName = method.DeclaringType.Name + "." + method.Name;
             if (Log.IsInfoEnabled)
             {
-                Log.Info("[" + methodName + "]:" + message);
+                Log.Info($"[{method.DeclaringType.Name}.{method.Name}]:{message}");
             }
         }
 
@@ -70,10 +68,9 @@ namespace DataMapper.Logger
         /// <param name="method">The method.</param>
         public void LogWarning(string message, MethodBase method)
         {
-            string methodName = method.DeclaringType.Name + "." + method.Name;
             if (Log.IsInfoEnabled)
             {
-                Log.Warn("[" + methodName + "]:" + message);
+                Log.Warn($"[{method.DeclaringType.Name}.{method.Name}]:{message}");
             }
         }
 
