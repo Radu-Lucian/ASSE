@@ -4,6 +4,7 @@
 // <summary> Defines the IBase service. </summary>
 namespace ServiceLayer.Service.Base
 {
+    using System.Linq;
     using Microsoft.Practices.EnterpriseLibrary.Validation;
 
     /// <summary>
@@ -45,5 +46,11 @@ namespace ServiceLayer.Service.Base
         /// <param name="id">The identifier.</param>
         /// <returns>Entity T.</returns>
         T Find(int id);
+
+        /// <summary>
+        /// Finds all.
+        /// </summary>
+        /// <returns><see cref="IQueryable"/> <typeparamref name="T" /> of entities.</returns>
+        IQueryable<T> FindAll();
     }
 }

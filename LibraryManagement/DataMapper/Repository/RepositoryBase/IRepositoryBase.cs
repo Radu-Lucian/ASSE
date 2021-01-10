@@ -22,6 +22,12 @@ namespace DataMapper.Repository.RepositoryBase
         T Find(int id);
 
         /// <summary>
+        /// Finds all.
+        /// </summary>
+        /// <returns>Returns all <typeparamref name="T"/> entities</returns>
+        IQueryable<T> FindAll();
+
+        /// <summary>
         /// Finds the by condition.
         /// </summary>
         /// <param name="expression">The expression.</param>

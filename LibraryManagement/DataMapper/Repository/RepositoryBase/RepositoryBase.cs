@@ -131,14 +131,33 @@ namespace DataMapper.Repository.RepositoryBase
         /// </returns>
         public virtual IQueryable<T> FindByCondition(Expression<Func<T, bool>> expression)
         {
-            this.Logger.LogInfo($"FindByCondition", MethodBase.GetCurrentMethod());
+            this.Logger.LogInfo($"Find {typeof(T).Name} entries by condition", MethodBase.GetCurrentMethod());
             try
             {
                 return this.LibraryDbContext.Set<T>().Where(expression).AsNoTracking();
             }
             catch (Exception ex)
             {
-                this.Logger.LogWarning($"FindByCondition, message {ex.Message}", MethodBase.GetCurrentMethod());
+                this.Logger.LogWarning($"Find by condition, message {ex.Message}", MethodBase.GetCurrentMethod());
+            }
+
+            return null;
+        }
+
+        /// <summary>
+        /// Finds all.
+        /// </summary>
+        /// <returns>Returns all <typeparamref name="T" /> entities</returns>
+        public virtual IQueryable<T> FindAll()
+        {
+            this.Logger.LogInfo($"Find all {typeof(T).Name} entries", MethodBase.GetCurrentMethod());
+            try
+            {
+                return this.LibraryDbContext.Set<T>().AsNoTracking();
+            }
+            catch (Exception ex)
+            {
+                this.Logger.LogWarning($"Find all, message {ex.Message}", MethodBase.GetCurrentMethod());
             }
 
             return null;
