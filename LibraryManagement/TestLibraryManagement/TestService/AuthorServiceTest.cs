@@ -7,6 +7,7 @@ namespace TestLibraryManagement.TestService
     using System;
     using System.Collections.Generic;
     using System.Data.Entity;
+    using System.Linq;
     using DataMapper.Repository;
     using DataMapper.Repository.DataBaseContext;
     using DomainModel.Model;
@@ -34,12 +35,42 @@ namespace TestLibraryManagement.TestService
         private Mock<LibraryManagementContext> LibraryContextMock { get; set; }
 
         /// <summary>
+        /// Gets or sets the author list.
+        /// </summary>
+        /// <value>The author list.</value>
+        private List<Author> AuthorList { get; set; }
+
+        /// <summary>
         /// Setups this instance.
         /// </summary>
         [SetUp]
         public void Setup()
         {
+            this.AuthorList =
+                new List<Author>
+           {
+                    new Author
+                    {
+                        FirstName = "Lucian",
+                        LastName = "Radu",
+                        Books = new List<Book> { new Book { Name = "Origin" } }
+                    },
+                    new Author
+                    {
+                        FirstName = "Andrei",
+                        LastName = "Radu",
+                        Books = new List<Book> { new Book { Name = "Stars" } }
+                    },
+            };
+            var queryable = this.AuthorList.AsQueryable();
+
             var mockSet = new Mock<DbSet<Author>>();
+            mockSet.As<IQueryable<Author>>().Setup(m => m.Provider).Returns(queryable.Provider);
+            mockSet.As<IQueryable<Author>>().Setup(m => m.Expression).Returns(queryable.Expression);
+            mockSet.As<IQueryable<Author>>().Setup(m => m.ElementType).Returns(queryable.ElementType);
+            mockSet.As<IQueryable<Author>>().Setup(m => m.GetEnumerator()).Returns(() => queryable.GetEnumerator());
+            mockSet.Setup(d => d.Add(It.IsAny<Author>())).Callback<Author>((s) => this.AuthorList.Add(s));
+
             this.LibraryContextMock = new Mock<LibraryManagementContext>();
             this.LibraryContextMock.Setup(m => m.Set<Author>()).Returns(mockSet.Object);
             this.AuthorService = new AuthorService(new AuthorRepository(this.LibraryContextMock.Object));
@@ -84,16 +115,8 @@ namespace TestLibraryManagement.TestService
         [Test]
         public void TestDeleteAuthorWithValidData()
         {
-            var author = new Author
-            {
-                FirstName = "Lucian",
-                LastName = "Radu",
-                Books = new List<Book> { new Book { Name = "Origin" } }
-            };
-            Mock<IBaseService<Author>> mock = new Mock<IBaseService<Author>>();
-            mock.Setup(m => m.Delete(author)).Returns(new Microsoft.Practices.EnterpriseLibrary.Validation.ValidationResults());
+            var author = this.AuthorList.ElementAt(0);
 
-            this.AuthorService = mock.Object;
             var results = this.AuthorService.Delete(author);
 
             Assert.IsEmpty(results);
@@ -131,21 +154,14 @@ namespace TestLibraryManagement.TestService
         [Test]
         public void TestUpdateAuthorWithValidData()
         {
-            var author = new Author
-            {
-                FirstName = "Lucian",
-                LastName = "Radu",
-                Books = new List<Book>()
-            };
-
-            this.AuthorService.Create(author);
+            var author = this.AuthorList.ElementAt(0);
 
             author.FirstName = "Andrei";
 
             var results = this.AuthorService.Update(author);
 
             Assert.IsEmpty(results);
-            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Exactly(2));
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());
         }
 
         /// <summary>
@@ -154,21 +170,14 @@ namespace TestLibraryManagement.TestService
         [Test]
         public void TestUpdateAuthorWithInvalidData()
         {
-            var author = new Author
-            {
-                FirstName = "Lucian",
-                LastName = "Radu",
-                Books = new List<Book> { new Book { Name = "Origin" } }
-            };
+            var author = this.AuthorList.ElementAt(0);
 
-            this.AuthorService.Create(author);
-
-            author.FirstName = "";
+            author.FirstName = string.Empty;
 
             var results = this.AuthorService.Update(author);
 
             Assert.IsNotEmpty(results);
-            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Once());
+            this.LibraryContextMock.Verify(b => b.SaveChanges(), Times.Never());
         }
 
         /// <summary>
@@ -189,28 +198,9 @@ namespace TestLibraryManagement.TestService
         [Test]
         public void TestFindAllAuthors()
         {
-            Mock<IBaseService<Author>> mock = new Mock<IBaseService<Author>>();
-            mock.Setup(m => m.FindAll()).Returns(
-                new List<Author>
-                {
-                    new Author
-                    {
-                        FirstName = "Lucian",
-                        LastName = "Radu",
-                        Books = new List<Book> { new Book { Name = "Origin" } }
-                    },
-                    new Author
-                    {
-                        FirstName = "Andrei",
-                        LastName = "Radu",
-                        Books = new List<Book> { new Book { Name = "Stars" } }
-                    },
-
-                });
-            this.AuthorService = mock.Object;
             var authors = this.AuthorService.FindAll();
 
-            Assert.IsTrue(authors.Count == 2);
+            Assert.IsTrue(authors.Count == this.AuthorList.Count);
         }
     }
 }
